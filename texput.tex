@@ -1,0 +1,1187 @@
+\title{\href{http://www.imagemagick.org/}{ImageMagick}}
+
+\maketitle
+\tableofcontents
+
+\chapter{Introduction}
+%{{{
+
+\section{About \href{http://www.imagemagick.org/Usage/}{ImageMagick}}
+%{{{
+
+\begin{itemize}
+\item ImageMagick® is a software suite to create, edit, compose, or
+  convert bitmap (raster) and vector images.
+\item It runs on Linux, Windows, Mac Os X, iOS, Android OS, and
+  others.
+\item The functionality of ImageMagick is typically utilized from the
+  command line, although you can use the features from programs
+  written in your favorite language (Perl, C, Ruby and PHP).
+\item ImageMagick is free software distributed under
+  \href{http://www.apache.org/licenses/LICENSE-2.0.html}{The Apache
+    2.0 license}.
+\item There is a
+  \href{http://www.imagemagick.org/discourse-server/}{forum} where you
+  can answer your questions.
+\end{itemize}
+
+%}}}
+
+\begin{equation}
+y=x^2
+\end{equation}
+
+\section{Installed version}
+%{{{
+
+\begin{lstlisting}
+convert -version
+\end{lstlisting}
+
+%}}}
+
+\section{\href{http://www.imagemagick.org/script/formats.php}{Listing the supported image formats}}
+%{{{
+
+\begin{lstlisting}
+identify -list format
+\end{lstlisting}
+
+%}}}
+
+\section{Delegates}
+%{{{
+
+\begin{itemize}
+\item Depending on how ImageMagick was configured, there is a
+  collection of delegate programs (for example, to create a MPEG
+  file ImageMagick uses FFMPEG).
+\begin{lstlisting}
+convert -list delegate
+\end{lstlisting}
+
+\end{itemize}
+
+%}}}
+
+\section{(Local) Help}
+%{{{
+
+\begin{itemize}
+\item All ImageMagick commands has man page:
+\begin{lstlisting}
+man imagemagick
+\end{lstlisting}
+\item Each ImageMagick command has a buit-in help:
+\begin{lstlisting}
+convert -help
+\end{lstlisting}
+\end{itemize}
+
+%}}}
+
+\section{Debugging}
+%{{{
+
+\begin{itemize}
+\item Standard debug:
+\begin{lstlisting}
+wget http://www.hpca.ual.es/~vruiz/images/lena.png .
+convert lena.png lena.jpg
+\end{lstlisting}
+\item No debug:
+\begin{lstlisting}
+convert +debug lena.png lena.jpg
+\end{lstlisting}
+\item Debug:
+\begin{lstlisting}
+convert -debug lena.png lena.jpg
+\end{lstlisting}
+\item More debug:
+\begin{lstlisting}
+convert -verbose lena.png lena.jpg
+\end{lstlisting}
+\item Progress information:
+\begin{lstlisting}
+convert -monitor lena.png lena.png
+\end{lstlisting}
+
+\end{itemize}
+
+%}}}
+
+\section{Commands}
+%{{{
+
+\begin{enumerate}
+\item \href{http://www.imagemagick.org/script/animate.php}{\tt
+    animage}: plays an image sequence.
+\item \href{http://www.imagemagick.org/script/compare.php}{\tt
+    compare}: compares images.
+\item \href{http://www.imagemagick.org/script/composite.php}{\tt
+    composite}: overlaps images.
+\item \href{http://www.imagemagick.org/script/conjure.php}{\tt
+    conjure}: performs custom image processing tasks from a script
+  written in the Magick Scripting Language (MSL).
+\item \href{http://www.imagemagick.org/script/convert.php}{\tt
+    convert}: resizes, blurs, crops, despeckles, dithers, draws on,
+  flips, joins, re-samples, and much more.
+\item \href{http://www.imagemagick.org/script/display.php}{\tt
+    display}: shows an image.
+\item \href{http://www.imagemagick.org/script/identify.php}{\tt
+    identify}: describes the format and characteristics of one or more
+  images.
+\item \href{http://www.imagemagick.org/script/import.php}{\tt import}:
+  captures images from the screen.
+\item \href{http://www.imagemagick.org/script/mogrify.php}{\tt mogrify}:
+  identical to convert, but overwrites the original image file.
+\item \href{http://www.imagemagick.org/script/montage.php}{\tt
+    montage}: composites images by combining others.
+\item \href{http://www.imagemagick.org/script/stream.php}{\tt stream}:
+  extracts regions directly from disk to disk (without loading the
+  image in the memory).
+\end{enumerate}
+
+%}}}
+
+%}}}
+
+\chapter{Displaying}
+%{{{
+
+\section{Using \href{http://www.imagemagick.org/script/identify.php}{\texttt{identify}}}
+%{{{
+
+\begin{itemize}
+\item Describe the format and characteristics of one or more image files.
+\begin{lstlisting}
+# Basic information about the built-in "rose" image:
+identify rose:
+
+# Idem for lena.png:
+identify lena.png
+
+# Extremely basic:
+identify -ping rose:
+
+# Get extra information:
+identify -verbose rose:
+\end{lstlisting}
+
+\end{itemize}
+
+%}}}
+
+\section{Using \href{http://www.imagemagick.org/script/display.php}{\texttt{display}}}
+%{{{
+
+\begin{itemize}
+\item Display an image or image sequence on any X server.
+\begin{lstlisting}
+# Create an image with the inline image "rose".
+convert rose: rose.png
+
+# Display de image using an independent window.
+display rose.png &
+
+# Using the root window.
+display -size 1280x1024 -window root rose.png &
+
+# Built a preview in a visual image directory.
+wget http://www.hpca.ual.es/~vruiz/videos/tempete_352x288x30x420x260.avi
+convert tempete_352x288x30x420x260.avi tempete%03d.png
+display 'vid:*.png' &
+
+# Using pipes:
+convert logo: gif:- | display - &
+#                 ^ ^         ^
+#                 | |         |
+#            stdout pipe    stdin
+\end{lstlisting}
+
+\end{itemize}
+
+%}}}
+
+\section{Using \href{http://www.imagemagick.org/script/animate.php}{\texttt{animate}}}
+%{{{
+
+\begin{itemize}
+\item Animate an image sequence on any X server.
+\begin{lstlisting}
+# Displays a sequence of independent JPEG images.
+animate *.jpg
+
+# Displays an animated GIF.
+animate tempete_animated.gif &
+
+# or ...
+firefox tempete_animated.gif &
+\end{lstlisting}
+\verb|# See Section| \ref{animated} \verb|to get tempete_animated.gif.|
+
+\end{itemize}
+
+%}}}
+
+\section{Using \href{http://en.wikipedia.org/wiki/File_(command)}{\texttt{file}}}
+
+%{{{
+
+\begin{lstlisting}
+# Create the image "rose.png":
+convert rose: rose.png
+
+# Get information:
+file rose.png
+\end{lstlisting}
+
+%}}}
+
+%}}}
+
+\chapter{Capturing}
+%{{{
+
+\begin{itemize}
+\item Save any visible window on an X server and outputs it as an
+  image file. You can capture a single window, the entire screen, or
+  any rectangular portion of the screen.
+\end{itemize}
+
+\begin{enumerate}
+
+\item Capture a window:
+
+\begin{lstlisting}
+import window.png
+\end{lstlisting}
+
+\item Capture a region:
+
+\begin{lstlisting}
+import -frame region.png
+\end{lstlisting}
+
+\item Capture the entire screen:
+
+\begin{lstlisting}
+import -window root screen.png
+\end{lstlisting}
+
+\end{enumerate}
+
+%}}}
+
+\chapter{Creating \& converting}
+%{{{
+
+\begin{itemize}
+\item Convert between image formats as well as resize an image, blur,
+  crop, despeckle, dither, draw on, flip, join, re-sample, and much
+  more.
+\end{itemize}
+
+\section{Using built-in images}
+%{{{
+
+\begin{lstlisting}
+# Create a image with a checkerboard.
+convert -size 640x480 pattern:checkerboard checkerboard.png
+
+# Show percent completion of a task as a shaded cylinder.
+convert -size 320x90 canvas:none -stroke snow4 -size 1x90 -tile gradient:white-snow4 \
+  -draw 'roundrectangle 16, 5, 304, 85 20,40' +tile -fill snow \
+  -draw 'roundrectangle 264, 5, 304, 85  20,40' -tile gradient:chartreuse-green \
+  -draw 'roundrectangle 16,  5, 180, 85  20,40' -tile gradient:chartreuse1-chartreuse3 \
+  -draw 'roundrectangle 140, 5, 180, 85  20,40' +tile -fill none \
+  -draw 'roundrectangle 264, 5, 304, 85 20,40' -strokewidth 2 \
+  -draw 'roundrectangle 16, 5, 304, 85 20,40' \( +clone -background snow4 \
+  -shadow 80x3+3+3 \) +swap -background none -layers merge \( +size -font Helvetica \
+  -pointsize 90 -strokewidth 1 -fill red label:'50 %' -trim +repage \( +clone \
+  -background firebrick3 -shadow 80x3+3+3 \) +swap -background none -layers merge \) \
+  -insert 0 -gravity center -append -background white -gravity center -extent 320x200 \
+  png:- | display -
+\end{lstlisting}
+
+%}}}
+
+\section{Creating animated images}
+%{{{
+
+\label{animated}
+
+\begin{enumerate}
+
+\item Using a \emph{globbing} parameter:
+%{{{
+
+\begin{lstlisting}
+# Create a sequence of PNG images.
+wget http://www.hpca.ual.es/~vruiz/videos/tempete_352x288x30x420x260.avi
+convert tempete_352x288x30x420x260.avi tempete%03d.png
+
+# Create a GIF animation with a sequence of PNG images.
+convert -loop 0 -delay 100 tempete*.png tempete_animated.gif
+#            ^          ^         ^
+#            |          |         |
+#            |          | filename globbing
+#            |        delay between images
+#         Loop forever
+
+firefox tempete_animated.gif &
+\end{lstlisting}
+
+%}}}
+
+\item Using a file with the names of the still images:
+%{{{
+
+\begin{lstlisting}
+cat << EOF > example_using_references.sh
+#!/bin/bash
+
+set -x
+
+# Empty file.
+echo -n "" > references.txt
+
+# Create the "references.txt" file.
+for (( i=0; i<100; i++ ))
+do
+  index_i=\`printf "%02d" \$i\` # Be carefully with the '\`'!
+  filename=checker-\$index_i.png
+  convert -size 256x256 pattern:checkerboard'['256x256+\$i+\$i']' \$filename
+  echo \$filename >> references.txt
+done
+
+# Create the movie using the references file.
+convert @references.txt movie.gif
+
+set +x
+EOF
+
+chmod +x example_using_references.sh
+./example_using_references.sh
+\end{lstlisting}
+
+\end{enumerate}
+
+%}}}
+
+%}}}
+
+\section{Extracting images from an animated image or video}
+%{{{
+
+\begin{lstlisting}
+convert tempete_352x288x30x420x260.avi tempete.gif
+
+# Extracting the first image of an animated GIF.
+convert 'tempete.gif[0]' tempete.png
+display tempete.png
+
+# Extracting a range of images.
+convert 'tempete.gif[0-3]' tempete.mng
+display tempete.mng
+
+# Extracting images out of order.
+convert 'tempete.gif[3,2,4]' tempete.mng
+display tempete.mng
+\end{lstlisting}
+
+%}}}
+
+\section{Disolving}
+%{{{
+
+\begin{lstlisting}
+composite -disolve 50% source1.jpg source2.png creation.tif
+\end{lstlisting}
+
+%}}}
+
+\section{Morphing}
+%{{{
+
+\begin{lstlisting}
+wget http://assets.worldwildlife.org/photos/2090/images/hero_full/Sumatran-Tiger-Hero.jpg?1345559303
+wget http://4.bp.blogspot.com/-OHVlacYzSlU/TZBinlfNXzI/AAAAAAAAEFI/tqaeTB2wfTA/s1600/Clara%20Lago%20Pictures.jpg
+convert -morph 50 Sumatran-Tiger-Hero.jpg\?1345559303 Clara\ Lago\ Pictures.jpg output.mng
+\end{lstlisting}
+
+%}}}
+
+\section{Watermarking}
+%{{{
+
+\begin{enumerate}
+
+\item Visible:
+
+\begin{lstlisting}
+# No offset:
+composite -watermark 50% mark.png foreground.jpg output.png
+
+# Centering the mark:
+composite -watermarck 40% -gravity center marck.jpg foreground.jpg output.jpg
+\end{lstlisting}
+
+\item Invisible:
+
+\begin{lstlisting}
+# Hide ``hidden_mark.png'' inside of ``foreground.jpg'':
+composite -stegano 101 hidden_mark.png foreground.jpg output.jpg
+#                   ^
+#                   |
+#       offset of the hidden mark
+
+# Extract the hidden image:
+display 200x100+101 stegano:output.png
+#          ^     ^
+#          |     |
+#          | offset of the hidden mark
+#  size of the hidden marck
+\end{lstlisting}
+
+\end{enumerate}
+
+%}}}
+
+\section{Removing and putting on headers}
+%{{{
+
+\begin{lstlisting}
+file tempete000.png
+# tempete000.png: PNG image data, 352 x 288, 8-bit/color RGB, non-interlaced
+\end{lstlisting}
+\begin{lstlisting}
+convert tempete000.png rgb:tempete_352x288_8bpp_rgb.raw
+#                      ^^^
+#    We specify an explicit output image format.
+\end{lstlisting}
+\noindent~\verb|# See Section| \texttt{\ref{animated}} \verb|to create tempete000.png.|
+\begin{lstlisting}
+convert -size 352x288 -depth 8 rgb:tempete.rgb tempete.gif
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+# "raw_image" is an input collection of 640x480 RGB samples without any header:
+convert -size 640x480 -depth 8 rgb:raw_image image.png
+#                              ^^^
+\end{lstlisting}
+
+%}}}
+
+%}}}
+
+\chapter{Comparing}
+%{{{
+
+\section{Compare two images}
+
+\begin{lstlisting}
+compare image1.png image2.png difference.png 
+\end{lstlisting}
+
+%}}}
+
+\chapter{Composing}
+%{{{
+
+\section{Overlaping images}
+%{{{
+
+\begin{lstlisting}
+composite first.png second.png composite.png
+\end{lstlisting}
+
+%}}}
+
+\section{Montaging}
+%{{{
+
+\begin{itemize}
+\item  Create a composite image by combining several separate images. The
+images are tiled on the composite image optionally adorned with a
+border, frame, image name, and more.
+\begin{lstlisting}
+montage -label %f -frame 10 -shadow -tile 4 *.jpg output.jpg
+#              ^         ^   ^            ^
+#              |         |   |            |
+#              |         |   |  number of images per row
+#              |         | create a shadow for each image
+#              |     use a frame os 10 pixels
+#            filename
+\end{lstlisting}
+
+\end{itemize}
+
+%}}}
+
+%}}}
+
+%\chapter{Scripting ({\tt conjure})}
+%{{{
+
+%\section{Conjure}
+%Interpret and execute scripts written in the Magick Scripting Language
+%(MSL).
+
+%}}}
+
+\chapter{Processing}
+%{{{
+
+\section{Reducing the number of colors}
+%{{{
+
+\begin{lstlisting}
+convert -colors 256 input.tif output.png
+# or
+convert -depth 8 input.tif output.png
+\end{lstlisting}
+
+%}}}
+
+\section{Chroma subsampling}
+%{{{
+
+\begin{lstlisting}
+# Selects YUV 4:2:2 chroma subsampling:
+convert -sampling-factor 2x1 input.png output.png
+\end{lstlisting}
+
+%}}}
+
+\section{Changing the quality}
+%{{{
+
+\begin{enumerate}
+\item In JPEG:
+\begin{lstlisting}
+convert -quality 15% input.png output.jpg
+\end{lstlisting}
+
+\item In JPEG2000:
+\begin{lstlisting}
+convert -quality 15% input.png -define "jp2:rate=1.0" output.jp2
+\end{lstlisting}
+
+\end{enumerate}
+%}}}
+
+\section{Gamma correction}
+%{{{
+
+\begin{lstlisting}
+conver -gamma 1.5,1.6,0.9 input.png output.png
+\end{lstlisting}
+
+%}}}
+
+\section{Transparency}
+%{{{
+
+\begin{lstlisting}
+# Pure red will be transparent:
+convert -transparent red input.gif output.gif
+\end{lstlisting}
+
+%}}}
+
+\section{Scale}
+%{{{
+
+Inline (while reading) multiple image processing:
+\begin{lstlisting}
+# Creates a 120x120 PNG thumbnail of each input image in the current directory. Each
+# image is processed as follows: read -> resize -> write.
+convert 'tempete*.png[120x120]' tempete_thumbnail%03d.png
+animate tempete_thumbnail*.png
+\end{lstlisting}
+
+%}}}
+
+\section{Crop}
+%{{{
+
+\begin{lstlisting}
+identify tempete000.png
+# tempete000.png PNG 352x288 352x288+0+0 8-bit DirectClass 200KB 0.000u 0:00.000
+#                                    ^ ^
+#     These offsets are important because should be added to "xo" and "yo"!
+
+convert 'tempete000.png[100x200+50+50]' - | display -
+#                       ^^^ ^^^ ^^ ^^
+#                       col row xo yo
+# col = column, row = row, xo = x offset, yo = y offset.
+
+# The same as previous example, but using (inline, while reading) cropping instead resizing.
+convert '*.jpg[120x120+10+5]' thumbnail%03d.png
+\end{lstlisting}
+
+%}}}
+
+\section{Manipulating contrast}
+%{{{
+
+\begin{itemize}
+\item The
+  \href{http://en.wikipedia.org/wiki/Contrast_(vision)}{contrast} is
+  the difference in luminance to make and object distinguishable.
+\begin{lstlisting}
+# Increasing:
+convert -constrast input.png output.png
+
+# Decreasing:
+convert +constrast input.png output.png
+\end{lstlisting}
+
+\end{itemize}
+
+%}}}
+
+\section{Dithering}
+%{{{
+
+\begin{itemize}
+\item Reduces the number of colors.
+\begin{lstlisting}
+# Using 2 colors:
+convert -dither -monochrome input.png output.png
+
+# Using 4 colors:
+convert -dither -colors 4 input.png output.png
+\end{lstlisting}
+
+\end{itemize}
+
+%}}}
+
+\section{Equalizing}
+%{{{
+
+\begin{itemize}
+\item Increases the dynamic range of the colors of the image.
+\begin{lstlisting}
+convert -equalize input.png output.png
+\end{lstlisting}
+
+\end{itemize}
+
+%}}}
+
+%\section{Tinting}
+\section{Normalizing}
+%{{{
+
+\begin{itemize}
+\item Increases the dynamic range of the colors of the image.
+\begin{lstlisting}
+convert -normalize input.png output.png
+\end{lstlisting}
+
+\end{itemize}
+
+%}}}
+
+%\section{Enhancing}
+%\section{Modulating}
+%\section{Flattening}
+
+\section{Bluring}
+%{{{
+
+\begin{itemize}
+\item Low pass filtering:
+\begin{lstlisting}
+convert -blur 10 input.png output.png
+#             ^
+#             |
+#          radius
+
+conver -blur 7x3 input.opng output.png
+#             ^
+#             |
+#          size of the convolutional mask
+\end{lstlisting}
+\end{itemize}
+
+
+%}}}
+
+\section{The \emph{charcoal} effect}
+%{{{
+
+\begin{itemize}
+\item High pass filtering:
+\begin{lstlisting}
+convert -charcoal 2 input.png output.png
+#                 ^
+#                 |
+#       thicknes of the boundaries
+\end{lstlisting}
+
+\end{itemize}
+
+%}}}
+
+%\section{colorize}
+\section{The \emph{impode} effect}
+%{{{
+
+\begin{itemize}
+\item A sink effect:
+\begin{lstlisting}
+convert -implode 2 input.png output.png
+#                ^
+#                |
+#             factor
+\end{lstlisting}
+
+\end{itemize}
+%}}}
+
+\section{Denoising}
+%{{{
+
+\begin{itemize}
+\item Removes noise:
+\begin{lstlisting}
+convert -noise 3 input.png output.png
+#              ^
+#              |
+#            radii
+\end{lstlisting}
+
+\end{itemize}
+
+%}}}
+
+\section{The \emph{paint} effect}
+%{{{
+
+\begin{itemize}
+\item Simulates oil painting:
+\begin{lstlisting}
+convert -paint 3 input.png output.png
+#              ^
+#              |
+#            radii
+\end{lstlisting}
+
+\end{itemize}
+%}}}
+
+\section{The \emph{radial-blur} effect}
+%{{{
+
+\begin{itemize}
+\item Simulates oil painting:
+\begin{lstlisting}
+convert -radial-blur 30 input.png output.png
+#                     ^
+#                     |
+#                   angle
+\end{lstlisting}
+
+\end{itemize}
+%}}}
+
+%\section{raise}
+
+\section{Sementing}
+%{{{
+
+\begin{itemize}
+\item Automatic image segmentation:
+\begin{lstlisting}
+convert -segment 1.75x2.0 input.png output.png
+#                  ^   ^
+#                  |   |
+#                  | smoothing
+#                clustering
+\end{lstlisting}
+
+\end{itemize}
+%}}}
+
+\section{The \emph{sepia-tone} effect}
+%{{{
+
+\begin{itemize}
+\item A vintage effect:
+\begin{lstlisting}
+convert -sepia-tone 75% input.png output.png
+#                    ^
+#                    |
+#                percentage
+\end{lstlisting}
+
+\end{itemize}
+%}}}
+
+\section{The \emph{shade} effect}
+%{{{
+
+\begin{itemize}
+\item Produces shades:
+\begin{lstlisting}
+convert -shade 0x10 input.png output.png
+#              ^  ^
+#              |  |
+#              | elevation of the source of light
+#             azimuth
+\end{lstlisting}
+
+\end{itemize}
+%}}}
+
+\section{Sharpenning}
+%{{{
+
+\begin{itemize}
+\item Using a Gaussian filtering to enhance the color boundaries:
+\begin{lstlisting}
+convert -sharpen 3x6 input.png output.png
+#                ^  ^
+#                |  |
+#                | standard deviation
+#               radii
+\end{lstlisting}
+
+\end{itemize}
+%}}}
+
+\section{Negating}
+%{{{
+
+\begin{itemize}
+\item A negative effect:
+\begin{lstlisting}
+convert -negate input.png output.png
+\end{lstlisting}
+
+\end{itemize}
+%}}}
+
+\section{The \emph{solarize} effect}
+%{{{
+
+\begin{itemize}
+\item Another negative effect:
+\begin{lstlisting}
+convert -solarize 30 input.png output.png
+#                  ^
+#                  |
+#               factor
+\end{lstlisting}
+
+\end{itemize}
+
+%}}}
+
+\section{The \emph{spread} effect}
+%{{{
+
+\begin{itemize}
+\item Swaps pixels randomly:
+\begin{lstlisting}
+convert -spread 7 input.png output.png
+#               ^
+#               |
+#             radii
+\end{lstlisting}
+\end{itemize}
+
+%}}}
+
+%\section{swirl}
+%\section{threshold}
+%\section{unsharp}
+\section{The \emph{wave} effect}
+%{{{
+
+\begin{itemize}
+\item Shakes the image:
+\begin{lstlisting}
+convert -wave 10x90 input.png output.png
+#              ^  ^
+#              |  | 
+#              | frequency
+#           amplitude
+\end{lstlisting}
+\end{itemize}
+
+%}}}
+
+%\section{virtual-pixel}
+
+%}}}
+
+\chapter{Editing}
+%{{{
+
+\section{Annotating}
+%{{{
+
+\begin{itemize}
+\item Put text inside images.
+\begin{lstlisting}
+convert -annotate 0x0+30+40 -stroke blue -fill red ``text'' input.png output.png
+#                     ^  ^
+#                     |  |
+#                     | Y offset
+#                    X offset      
+\end{lstlisting}
+
+\end{itemize}
+
+%}}}
+
+\section{Removing metadata}
+%{{{
+
+\begin{lstlisting}
+identify -verbose input.jpg
+convert -strip input.jpg output.jpg
+identify -verbose output.jpg
+\end{lstlisting}
+
+%}}}
+
+\section{Change metadata}
+%{{{
+
+\begin{lstlisting}
+convert -comment ``This image was created by ...'' input.jpg output.jpg
+convert -density 150x150 -units PixelsPerInch input.jpg output.jpg
+\end{lstlisting}
+
+%}}}
+
+\section{Scaling}
+%{{{
+
+\begin{enumerate}
+
+\item Absolute size:
+
+\begin{lstlisting}
+convert -resize 352x288 input.jpg output.jpg
+\end{lstlisting}
+
+\item Maximum size (not larger than) and conserving the width/height ratio:
+
+\begin{lstlisting}
+convert -resize 352x288< input.jpg output.jpg
+\end{lstlisting}
+
+\item Minimum size (not smaller than) and conserving the width/height ratio:
+
+\begin{lstlisting}
+convert -resize 352x288> input.jpg output.jpg
+\end{lstlisting}
+
+\item Percentage change:
+
+\begin{lstlisting}
+convert -resize 25% input.jpg output.jpg
+\end{lstlisting}
+
+\item Maximun number of pixels:
+
+\begin{lstlisting}
+convert -resize 25000@ input.jpg output.jpg
+\end{lstlisting}
+
+\item Sampling (changes both, the resolution and the image size):
+\begin{lstlisting}
+convert -sample 250% input.jpg output.jpg
+\end{lstlisting}
+
+\item Resampling (in dots per inch). It changes the resolution, but not the size:
+
+\begin{lstlisting}
+convert -resample 150x150 input.jpg output.jpg
+\end{lstlisting}
+
+\item Using a faster (but unaccurate) algorithm:
+
+\begin{lstlisting}
+convert -scale 200% input.jpg output.jpg
+\end{lstlisting}
+
+\item Thumbnails:
+
+\begin{lstlisting}
+# Only one image:
+convert -thumbnail 10% input.jpg output.jpg
+\end{lstlisting}
+
+\begin{lstlisting}
+# A group of images (this example does not overwrites the original images):
+mogrify -format png -thumbnail 15% *.jpg
+\end{lstlisting}
+
+
+\end{enumerate}
+
+%}}}
+
+\section{Rotating}
+%{{{
+
+\begin{lstlisting}
+convert -rotate -75 input.png output.png
+\end{lstlisting}
+
+%}}}
+
+\section{Flipping}
+%{{{
+
+\begin{lstlisting}
+# Vertically:
+convert -flip input.png output.png
+
+# Horizontaally:
+convert -flop input.png output.png
+\end{lstlisting}
+
+%}}}
+
+\section{Shearing}
+%{{{
+
+\begin{itemize}
+\item Put the input image at an angle.
+
+\begin{lstlisting}
+convert -shear 45x10 input.png output.png
+#               ^  ^
+#               |  |
+#               | vertical shearing
+#             horizontal
+\end{lstlisting}
+\end{itemize}
+
+%}}}
+
+%\section{Rolling}
+\section{Averaging}
+%{{{
+
+\begin{lstlisting}
+convert -average *.png output.png
+\end{lstlisting}
+
+%}}}
+
+\section{Cropping}
+%{{{
+
+\begin{enumerate}
+
+\item Extract a subregion:
+
+\begin{lstlisting}
+convert -crop 999x768+100+200 input.png output.png
+#              ^   ^   ^   ^
+#              |   |   |   |
+#              |   |   | Y offset
+#              |   | X offset
+#              | height of the extracted image
+#            width of the extracted image
+\end{lstlisting}
+
+\item Remove a border:
+
+\begin{lstlisting}
+convert -shave 10x10 input.jpg output.jpg
+\end{lstlisting}
+
+\item Remove the constant border:
+
+\begin{lstlisting}
+convert -trim input.jpg output.jpg
+\end{lstlisting}
+
+\item Remove the similar border:
+
+\begin{lstlisting}
+convert -fuzz 10% input.jpg output.jpg
+\end{lstlisting}
+
+\end{enumerate}
+
+%}}}
+
+\section{Chopping}
+%{{{
+
+\begin{itemize}
+\item Removes columns and rows (both, at the same time) of an image.
+\begin{lstlisting}
+convert -chop 500x600+700+800 input.png output.png
+#              ^   ^   ^   ^
+#              |   |   |   |
+#              |   |   | Y offset
+#              |   | X offset
+#              | height of the removed region
+#            width of the removed region
+\end{lstlisting}
+
+\end{itemize}
+
+%}}}
+
+\section{Adding images}
+%{{{
+
+\begin{lstlisting}
+convert image1.jpg image2.png image3.tif output.pdf
+\end{lstlisting}
+
+%}}}
+
+\section{Inserting images}
+%{{{
+
+\begin{lstlisting}
+# Inserts ``image.png'' as the 3rd image:
+convert -insert 3 image.png input.mng output.gif
+\end{lstlisting}
+
+%}}}
+
+\section{Deleting images}
+%{{{
+
+\begin{lstlisting}
+# Deletes the 3rd, 4th and 10th images:
+convert -delete 3,4,10 input.mng output.gif
+\end{lstlisting}
+
+%}}}
+
+\section{Swapping images}
+%{{{
+
+\begin{lstlisting}
+# Swaps the 3rd, 4th images:
+convert -delete 3,4 input.mng output.gif
+\end{lstlisting}
+
+%}}}
+
+\section{Appending}
+%{{{
+
+\begin{lstlisting}
+convert top.png bottom.png -append result.png
+\end{lstlisting}
+
+%}}}
+
+%}}}

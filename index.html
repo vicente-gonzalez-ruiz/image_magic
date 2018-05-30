@@ -1,0 +1,1627 @@
+<!DOCTYPE html> 
+<html> 
+<head> <title>ImageMagick</title> 
+<meta charset="UTF-8" /> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<link rel="stylesheet" type="text/css" href="index.css" /> 
+<script type="text/javascript" 
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" 
+></script> 
+<style type="text/css"> 
+.MathJax_MathML {text-indent: 0;} 
+</style> 
+</head><body 
+>
+   <div class="maketitle">
+                                                                  
+
+                                                                  
+
+<h2 class="titleHead"><a 
+href="http://www.imagemagick.org/" >ImageMagick</a></h2>
+ <div class="author" ><span 
+class="ecrm-1200">Vicente Gonz</span><span 
+class="ecrm-1200">á</span><span 
+class="ecrm-1200">lez Ruiz</span></div><br />
+<div class="date" ><span 
+class="ecrm-1200">May 30, 2018</span></div>
+                                                                  
+
+                                                                  
+   </div>
+                                                                  
+
+                                                                  
+   <h2 class="likechapterHead"><a 
+ id="x1-1000"></a>Contents</h2> <div class="tableofcontents">
+   <span class="chapterToc" >1 <a 
+href="#x1-20001" id="QQ2-1-2">Introduction</a></span>
+<br />    <span class="sectionToc" >1.1 <a 
+href="#x1-30001.1" id="QQ2-1-3">About ImageMagick</a></span>
+<br />    <span class="sectionToc" >1.2 <a 
+href="#x1-40001.2" id="QQ2-1-4">Installed version</a></span>
+<br />    <span class="sectionToc" >1.3 <a 
+href="#x1-50001.3" id="QQ2-1-5">Listing the supported image formats</a></span>
+<br />    <span class="sectionToc" >1.4 <a 
+href="#x1-60001.4" id="QQ2-1-6">Delegates</a></span>
+<br />    <span class="sectionToc" >1.5 <a 
+href="#x1-70001.5" id="QQ2-1-7">(Local) Help</a></span>
+<br />    <span class="sectionToc" >1.6 <a 
+href="#x1-80001.6" id="QQ2-1-8">Debugging</a></span>
+<br />    <span class="sectionToc" >1.7 <a 
+href="#x1-90001.7" id="QQ2-1-9">Commands</a></span>
+<br />   <span class="chapterToc" >2 <a 
+href="#x1-100002" id="QQ2-1-10">Displaying</a></span>
+<br />    <span class="sectionToc" >2.1 <a 
+href="#x1-110002.1" id="QQ2-1-11">Using <span 
+class="ectt-1000">identify</span></a></span>
+<br />    <span class="sectionToc" >2.2 <a 
+href="#x1-120002.2" id="QQ2-1-12">Using <span 
+class="ectt-1000">display</span></a></span>
+<br />    <span class="sectionToc" >2.3 <a 
+href="#x1-130002.3" id="QQ2-1-13">Using <span 
+class="ectt-1000">animate</span></a></span>
+<br />    <span class="sectionToc" >2.4 <a 
+href="#x1-140002.4" id="QQ2-1-14">Using <span 
+class="ectt-1000">file</span></a></span>
+<br />   <span class="chapterToc" >3 <a 
+href="#x1-150003" id="QQ2-1-15">Capturing</a></span>
+<br />   <span class="chapterToc" >4 <a 
+href="#x1-160004" id="QQ2-1-16">Creating &#x0026; converting</a></span>
+<br />    <span class="sectionToc" >4.1 <a 
+href="#x1-170004.1" id="QQ2-1-17">Using built-in images</a></span>
+<br />    <span class="sectionToc" >4.2 <a 
+href="#x1-180004.2" id="QQ2-1-18">Creating animated images</a></span>
+<br />    <span class="sectionToc" >4.3 <a 
+href="#x1-190004.3" id="QQ2-1-19">Extracting images from an animated image or video</a></span>
+<br />    <span class="sectionToc" >4.4 <a 
+href="#x1-200004.4" id="QQ2-1-20">Disolving</a></span>
+<br />    <span class="sectionToc" >4.5 <a 
+href="#x1-210004.5" id="QQ2-1-21">Morphing</a></span>
+<br />    <span class="sectionToc" >4.6 <a 
+href="#x1-220004.6" id="QQ2-1-22">Watermarking</a></span>
+<br />    <span class="sectionToc" >4.7 <a 
+href="#x1-230004.7" id="QQ2-1-23">Removing and putting on headers</a></span>
+<br />   <span class="chapterToc" >5 <a 
+href="#x1-240005" id="QQ2-1-24">Comparing</a></span>
+<br />    <span class="sectionToc" >5.1 <a 
+href="#x1-250005.1" id="QQ2-1-25">Compare two images</a></span>
+<br />   <span class="chapterToc" >6 <a 
+href="#x1-260006" id="QQ2-1-26">Composing</a></span>
+<br />    <span class="sectionToc" >6.1 <a 
+href="#x1-270006.1" id="QQ2-1-27">Overlaping images</a></span>
+<br />    <span class="sectionToc" >6.2 <a 
+href="#x1-280006.2" id="QQ2-1-28">Montaging</a></span>
+<br />   <span class="chapterToc" >7 <a 
+href="#x1-290007" id="QQ2-1-29">Processing</a></span>
+<br />    <span class="sectionToc" >7.1 <a 
+href="#x1-300007.1" id="QQ2-1-30">Reducing the number of colors</a></span>
+<br />    <span class="sectionToc" >7.2 <a 
+href="#x1-310007.2" id="QQ2-1-31">Chroma subsampling</a></span>
+<br />    <span class="sectionToc" >7.3 <a 
+href="#x1-320007.3" id="QQ2-1-32">Changing the quality</a></span>
+<br />    <span class="sectionToc" >7.4 <a 
+href="#x1-330007.4" id="QQ2-1-33">Gamma correction</a></span>
+<br />    <span class="sectionToc" >7.5 <a 
+href="#x1-340007.5" id="QQ2-1-34">Transparency</a></span>
+<br />    <span class="sectionToc" >7.6 <a 
+href="#x1-350007.6" id="QQ2-1-35">Scale</a></span>
+<br />    <span class="sectionToc" >7.7 <a 
+href="#x1-360007.7" id="QQ2-1-36">Crop</a></span>
+<br />    <span class="sectionToc" >7.8 <a 
+href="#x1-370007.8" id="QQ2-1-37">Manipulating contrast</a></span>
+                                                                  
+
+                                                                  
+<br />    <span class="sectionToc" >7.9 <a 
+href="#x1-380007.9" id="QQ2-1-38">Dithering</a></span>
+<br />    <span class="sectionToc" >7.10 <a 
+href="#x1-390007.10" id="QQ2-1-39">Equalizing</a></span>
+<br />    <span class="sectionToc" >7.11 <a 
+href="#x1-400007.11" id="QQ2-1-40">Normalizing</a></span>
+<br />    <span class="sectionToc" >7.12 <a 
+href="#x1-410007.12" id="QQ2-1-41">Bluring</a></span>
+<br />    <span class="sectionToc" >7.13 <a 
+href="#x1-420007.13" id="QQ2-1-42">The <span 
+class="ecti-1000">charcoal </span>eﬀect</a></span>
+<br />    <span class="sectionToc" >7.14 <a 
+href="#x1-430007.14" id="QQ2-1-43">The <span 
+class="ecti-1000">impode </span>eﬀect</a></span>
+<br />    <span class="sectionToc" >7.15 <a 
+href="#x1-440007.15" id="QQ2-1-44">Denoising</a></span>
+<br />    <span class="sectionToc" >7.16 <a 
+href="#x1-450007.16" id="QQ2-1-45">The <span 
+class="ecti-1000">paint </span>eﬀect</a></span>
+<br />    <span class="sectionToc" >7.17 <a 
+href="#x1-460007.17" id="QQ2-1-46">The <span 
+class="ecti-1000">radial-blur </span>eﬀect</a></span>
+<br />    <span class="sectionToc" >7.18 <a 
+href="#x1-470007.18" id="QQ2-1-47">Sementing</a></span>
+<br />    <span class="sectionToc" >7.19 <a 
+href="#x1-480007.19" id="QQ2-1-48">The <span 
+class="ecti-1000">sepia-tone </span>eﬀect</a></span>
+<br />    <span class="sectionToc" >7.20 <a 
+href="#x1-490007.20" id="QQ2-1-49">The <span 
+class="ecti-1000">shade </span>eﬀect</a></span>
+<br />    <span class="sectionToc" >7.21 <a 
+href="#x1-500007.21" id="QQ2-1-50">Sharpenning</a></span>
+<br />    <span class="sectionToc" >7.22 <a 
+href="#x1-510007.22" id="QQ2-1-51">Negating</a></span>
+<br />    <span class="sectionToc" >7.23 <a 
+href="#x1-520007.23" id="QQ2-1-52">The <span 
+class="ecti-1000">solarize </span>eﬀect</a></span>
+<br />    <span class="sectionToc" >7.24 <a 
+href="#x1-530007.24" id="QQ2-1-53">The <span 
+class="ecti-1000">spread </span>eﬀect</a></span>
+<br />    <span class="sectionToc" >7.25 <a 
+href="#x1-540007.25" id="QQ2-1-54">The <span 
+class="ecti-1000">wave </span>eﬀect</a></span>
+<br />   <span class="chapterToc" >8 <a 
+href="#x1-550008" id="QQ2-1-55">Editing</a></span>
+<br />    <span class="sectionToc" >8.1 <a 
+href="#x1-560008.1" id="QQ2-1-56">Annotating</a></span>
+<br />    <span class="sectionToc" >8.2 <a 
+href="#x1-570008.2" id="QQ2-1-57">Removing metadata</a></span>
+<br />    <span class="sectionToc" >8.3 <a 
+href="#x1-580008.3" id="QQ2-1-58">Change metadata</a></span>
+<br />    <span class="sectionToc" >8.4 <a 
+href="#x1-590008.4" id="QQ2-1-59">Scaling</a></span>
+<br />    <span class="sectionToc" >8.5 <a 
+href="#x1-600008.5" id="QQ2-1-60">Rotating</a></span>
+<br />    <span class="sectionToc" >8.6 <a 
+href="#x1-610008.6" id="QQ2-1-61">Flipping</a></span>
+<br />    <span class="sectionToc" >8.7 <a 
+href="#x1-620008.7" id="QQ2-1-62">Shearing</a></span>
+<br />    <span class="sectionToc" >8.8 <a 
+href="#x1-630008.8" id="QQ2-1-63">Averaging</a></span>
+<br />    <span class="sectionToc" >8.9 <a 
+href="#x1-640008.9" id="QQ2-1-64">Cropping</a></span>
+<br />    <span class="sectionToc" >8.10 <a 
+href="#x1-650008.10" id="QQ2-1-65">Chopping</a></span>
+<br />    <span class="sectionToc" >8.11 <a 
+href="#x1-660008.11" id="QQ2-1-66">Adding images</a></span>
+<br />    <span class="sectionToc" >8.12 <a 
+href="#x1-670008.12" id="QQ2-1-67">Inserting images</a></span>
+<br />    <span class="sectionToc" >8.13 <a 
+href="#x1-680008.13" id="QQ2-1-68">Deleting images</a></span>
+<br />    <span class="sectionToc" >8.14 <a 
+href="#x1-690008.14" id="QQ2-1-69">Swapping images</a></span>
+<br />    <span class="sectionToc" >8.15 <a 
+href="#x1-700008.15" id="QQ2-1-70">Appending</a></span>
+   </div>
+                                                                  
+
+                                                                  
+   <h2 class="chapterHead"><span class="titlemark">Chapter 1</span><br /><a 
+ id="x1-20001"></a>Introduction</h2>
+   <h3 class="sectionHead"><span class="titlemark">1.1   </span> <a 
+ id="x1-30001.1"></a>About <a 
+href="http://www.imagemagick.org/Usage/" >ImageMagick</a></h3>
+     <ul class="itemize1">
+     <li class="itemize">ImageMagick®  is  a  software  suite  to  create,  edit,  compose,  or  convert
+     bitmap (raster) and vector images.
+     </li>
+     <li class="itemize">It runs on Linux, Windows, Mac Os X, iOS, Android OS, and others.
+     </li>
+     <li class="itemize">The functionality of ImageMagick is typically utilized from the command
+     line, although you can use the features from programs written in your
+     favorite language (Perl, C, Ruby and PHP).
+     </li>
+     <li class="itemize">ImageMagick is free software distributed under <a 
+href="http://www.apache.org/licenses/LICENSE-2.0.html" >The Apache 2.0 license</a>.
+     </li>
+     <li class="itemize">There is a <a 
+href="http://www.imagemagick.org/discourse-server/" >forum</a> where you can answer your questions.</li></ul>
+   <table class="equation"><tr><td> <a 
+ id="x1-3001r1"></a>
+<!--l. 30--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation">
+                              <mi 
+>y</mi> <mo 
+class="MathClass-rel">=</mo> <msup><mrow 
+><mi 
+>x</mi></mrow><mrow 
+><mn>2</mn></mrow></msup 
+>
+</math></td><td class="eq-no">(1.1)</td></tr></table>
+<!--l. 34--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">1.2   </span> <a 
+ id="x1-40001.2"></a>Installed version</h3>
+   <!--l. 37-->
+   <div class="lstlisting" id="listing-1"><span class="label"><a 
+ id="x1-4001r1"></a></span>convert <span 
+class="cmsy-10">−</span>version
+   
+   </div>
+                                                                  
+
+                                                                  
+<!--l. 43--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">1.3   </span> <a 
+ id="x1-50001.3"></a><a 
+href="http://www.imagemagick.org/script/formats.php" >Listing the supported image formats</a></h3>
+   <!--l. 46-->
+   <div class="lstlisting" id="listing-2"><span class="label"><a 
+ id="x1-5001r1"></a></span>identify <span 
+class="cmsy-10">−</span>list format
+   
+   </div>
+<!--l. 52--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">1.4   </span> <a 
+ id="x1-60001.4"></a>Delegates</h3>
+     <ul class="itemize1">
+     <li class="itemize">Depending on how ImageMagick was conﬁgured, there is a collection of delegate
+     programs (for example, to create a MPEG ﬁle ImageMagick uses FFMPEG).
+     <!--l. 59-->
+     <div class="lstlisting" id="listing-3"><span class="label"><a 
+ id="x1-6001r1"></a></span>convert <span 
+class="cmsy-10">−</span>list delegate
+     
+     </div>
+     </li></ul>
+<!--l. 67--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">1.5   </span> <a 
+ id="x1-70001.5"></a>(Local) Help</h3>
+     <ul class="itemize1">
+     <li class="itemize">All ImageMagick commands has man page: <!--l. 72-->
+     <div class="lstlisting" id="listing-4"><span class="label"><a 
+ id="x1-7001r1"></a></span>man imagemagick
+     
+     </div>
+     </li>
+     <li class="itemize">Each ImageMagick command has a buit-in help: <!--l. 76-->
+     <div class="lstlisting" id="listing-5"><span class="label"><a 
+ id="x1-7002r1"></a></span>convert <span 
+class="cmsy-10">−</span>help
+     
+                                                                  
+
+                                                                  
+     </div>
+     </li></ul>
+<!--l. 83--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">1.6   </span> <a 
+ id="x1-80001.6"></a>Debugging</h3>
+     <ul class="itemize1">
+     <li class="itemize">Standard debug: <!--l. 88-->
+     <div class="lstlisting" id="listing-6"><span class="label"><a 
+ id="x1-8001r1"></a></span>wget http://www.hpca.ual.es/~vruiz/images/lena.png . <br /><span class="label"><a 
+ id="x1-8002r2"></a></span>convert lena.png lena.jpg
+     
+     </div>
+     </li>
+     <li class="itemize">No debug: <!--l. 93-->
+     <div class="lstlisting" id="listing-7"><span class="label"><a 
+ id="x1-8003r1"></a></span>convert +debug lena.png lena.jpg
+     
+     </div>
+     </li>
+     <li class="itemize">Debug: <!--l. 97-->
+     <div class="lstlisting" id="listing-8"><span class="label"><a 
+ id="x1-8004r1"></a></span>convert <span 
+class="cmsy-10">−</span>debug lena.png lena.jpg
+     
+     </div>
+     </li>
+     <li class="itemize">More debug: <!--l. 101-->
+     <div class="lstlisting" id="listing-9"><span class="label"><a 
+ id="x1-8005r1"></a></span>convert <span 
+class="cmsy-10">−</span>verbose lena.png lena.jpg
+     
+     </div>
+     </li>
+     <li class="itemize">Progress information: <!--l. 105-->
+     <div class="lstlisting" id="listing-10"><span class="label"><a 
+ id="x1-8006r1"></a></span>convert <span 
+class="cmsy-10">−</span>monitor lena.png lena.png
+     
+     </div>
+     </li></ul>
+                                                                  
+
+                                                                  
+<!--l. 113--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">1.7   </span> <a 
+ id="x1-90001.7"></a>Commands</h3>
+<!--l. 116--><p class="noindent" >
+     </p><ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-9002x1"><a 
+href="http://www.imagemagick.org/script/animate.php" ><span 
+class="ectt-1000">animage</span></a>: plays an image sequence.
+     </li>
+     <li 
+  class="enumerate" id="x1-9004x2"><a 
+href="http://www.imagemagick.org/script/compare.php" ><span 
+class="ectt-1000">compare</span></a>: compares images.
+     </li>
+     <li 
+  class="enumerate" id="x1-9006x3"><a 
+href="http://www.imagemagick.org/script/composite.php" ><span 
+class="ectt-1000">composite</span></a>: overlaps images.
+     </li>
+     <li 
+  class="enumerate" id="x1-9008x4"><a 
+href="http://www.imagemagick.org/script/conjure.php" ><span 
+class="ectt-1000">conjure</span></a>: performs custom image processing tasks from a script written in
+     the Magick Scripting Language (MSL).
+     </li>
+     <li 
+  class="enumerate" id="x1-9010x5"><a 
+href="http://www.imagemagick.org/script/convert.php" ><span 
+class="ectt-1000">convert</span></a>: resizes, blurs, crops, despeckles, dithers, draws on, ﬂips, joins,
+     re-samples, and much more.
+     </li>
+     <li 
+  class="enumerate" id="x1-9012x6"><a 
+href="http://www.imagemagick.org/script/display.php" ><span 
+class="ectt-1000">display</span></a>: shows an image.
+     </li>
+     <li 
+  class="enumerate" id="x1-9014x7"><a 
+href="http://www.imagemagick.org/script/identify.php" ><span 
+class="ectt-1000">identify</span></a>: describes the format and characteristics of one or more images.
+     </li>
+     <li 
+  class="enumerate" id="x1-9016x8"><a 
+href="http://www.imagemagick.org/script/import.php" ><span 
+class="ectt-1000">import</span></a>: captures images from the screen.
+     </li>
+     <li 
+  class="enumerate" id="x1-9018x9"><a 
+href="http://www.imagemagick.org/script/mogrify.php" ><span 
+class="ectt-1000">mogrify</span></a>: identical to convert, but overwrites the original image ﬁle.
+     </li>
+     <li 
+  class="enumerate" id="x1-9020x10"><a 
+href="http://www.imagemagick.org/script/montage.php" ><span 
+class="ectt-1000">montage</span></a>: composites images by combining others.
+     </li>
+     <li 
+  class="enumerate" id="x1-9022x11"><a 
+href="http://www.imagemagick.org/script/stream.php" ><span 
+class="ectt-1000">stream</span></a>: extracts regions directly from disk to disk (without loading the
+     image in the memory).</li></ol>
+                                                                  
+
+                                                                  
+   <h2 class="chapterHead"><span class="titlemark">Chapter 2</span><br /><a 
+ id="x1-100002"></a>Displaying</h2>
+   <h3 class="sectionHead"><span class="titlemark">2.1   </span> <a 
+ id="x1-110002.1"></a>Using <a 
+href="http://www.imagemagick.org/script/identify.php" ><span 
+class="ectt-1000">identify</span></a></h3>
+     <ul class="itemize1">
+     <li class="itemize">Describe the format and characteristics of one or more image ﬁles.
+     <!--l. 157-->
+     <div class="lstlisting" id="listing-11"><span class="label"><a 
+ id="x1-11001r1"></a></span># Basic information about the built<span 
+class="cmsy-10">−</span>in &#x0022;rose&#x0022; image: <br /><span class="label"><a 
+ id="x1-11002r2"></a></span>identify rose: <br /><span class="label"><a 
+ id="x1-11003r3"></a></span> <br /><span class="label"><a 
+ id="x1-11004r4"></a></span># Idem for lena.png: <br /><span class="label"><a 
+ id="x1-11005r5"></a></span>identify lena.png <br /><span class="label"><a 
+ id="x1-11006r6"></a></span> <br /><span class="label"><a 
+ id="x1-11007r7"></a></span># Extremely basic: <br /><span class="label"><a 
+ id="x1-11008r8"></a></span>identify <span 
+class="cmsy-10">−</span>ping rose: <br /><span class="label"><a 
+ id="x1-11009r9"></a></span> <br /><span class="label"><a 
+ id="x1-11010r10"></a></span># Get extra information: <br /><span class="label"><a 
+ id="x1-11011r11"></a></span>identify <span 
+class="cmsy-10">−</span>verbose rose:
+     
+     </div>
+     </li></ul>
+<!--l. 175--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">2.2   </span> <a 
+ id="x1-120002.2"></a>Using <a 
+href="http://www.imagemagick.org/script/display.php" ><span 
+class="ectt-1000">display</span></a></h3>
+     <ul class="itemize1">
+     <li class="itemize">Display an image or image sequence on any X server. <!--l. 180-->
+     <div class="lstlisting" id="listing-12"><span class="label"><a 
+ id="x1-12001r1"></a></span># Create an image with the inline image &#x0022;rose&#x0022;. <br /><span class="label"><a 
+ id="x1-12002r2"></a></span>convert rose: rose.png <br /><span class="label"><a 
+ id="x1-12003r3"></a></span> <br /><span class="label"><a 
+ id="x1-12004r4"></a></span># Display de image using an independent window. <br /><span class="label"><a 
+ id="x1-12005r5"></a></span>display rose.png &#x0026; <br /><span class="label"><a 
+ id="x1-12006r6"></a></span> <br /><span class="label"><a 
+ id="x1-12007r7"></a></span># Using the root window. <br /><span class="label"><a 
+ id="x1-12008r8"></a></span>display <span 
+class="cmsy-10">−</span>size 1280x1024 <span 
+class="cmsy-10">−</span>window root rose.png &#x0026; <br /><span class="label"><a 
+ id="x1-12009r9"></a></span> <br /><span class="label"><a 
+ id="x1-12010r10"></a></span># Built a preview in a visual image directory. <br /><span class="label"><a 
+ id="x1-12011r11"></a></span>wget http://www.hpca.ual.es/~vruiz/videos/tempete_352x288x30x420x260.avi <br /><span class="label"><a 
+ id="x1-12012r12"></a></span>convert tempete_352x288x30x420x260.avi tempete%03d.png <br /><span class="label"><a 
+ id="x1-12013r13"></a></span>display &#x2019;vid:<span 
+class="cmsy-10">∗</span>.png&#x2019; &#x0026; <br /><span class="label"><a 
+ id="x1-12014r14"></a></span> <br /><span class="label"><a 
+ id="x1-12015r15"></a></span># Using pipes: <br /><span class="label"><a 
+ id="x1-12016r16"></a></span>convert logo: gif:<span 
+class="cmsy-10">−</span> | display <span 
+class="cmsy-10">−</span> &#x0026; <br /><span class="label"><a 
+ id="x1-12017r17"></a></span>#                 ^ ^         ^ <br /><span class="label"><a 
+ id="x1-12018r18"></a></span>#                 | |         | <br /><span class="label"><a 
+ id="x1-12019r19"></a></span>#            stdout pipe    stdin
+     
+     </div>
+     </li></ul>
+<!--l. 206--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">2.3   </span> <a 
+ id="x1-130002.3"></a>Using <a 
+href="http://www.imagemagick.org/script/animate.php" ><span 
+class="ectt-1000">animate</span></a></h3>
+     <ul class="itemize1">
+     <li class="itemize">Animate an image sequence on any X server. <!--l. 211-->
+     <div class="lstlisting" id="listing-13"><span class="label"><a 
+ id="x1-13001r1"></a></span># Displays a sequence of independent JPEG images. <br /><span class="label"><a 
+ id="x1-13002r2"></a></span>animate <span 
+class="cmsy-10">∗</span>.jpg <br /><span class="label"><a 
+ id="x1-13003r3"></a></span> <br /><span class="label"><a 
+ id="x1-13004r4"></a></span># Displays an animated GIF. <br /><span class="label"><a 
+ id="x1-13005r5"></a></span>animate tempete_animated.gif &#x0026; <br /><span class="label"><a 
+ id="x1-13006r6"></a></span> <br /><span class="label"><a 
+ id="x1-13007r7"></a></span># or ... <br /><span class="label"><a 
+ id="x1-13008r8"></a></span>firefox tempete_animated.gif &#x0026;
+     
+     </div>
+     <!--l. 221--><p class="noindent" ><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">#</span><span 
+class="ectt-1000"> See</span><span 
+class="ectt-1000"> Section</span></span></span> <a 
+href="#x1-180004.2">4.2<!--tex4ht:ref: animated --></a> <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">to</span><span 
+class="ectt-1000"> get</span><span 
+class="ectt-1000"> tempete_animated.gif.</span></span></span>
+</p>
+     </li></ul>
+                                                                  
+
+                                                                  
+<!--l. 227--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">2.4   </span> <a 
+ id="x1-140002.4"></a>Using <a 
+href="http://en.wikipedia.org/wiki/File_(command)" ><span 
+class="ectt-1000">file</span></a></h3>
+   <!--l. 231-->
+   <div class="lstlisting" id="listing-14"><span class="label"><a 
+ id="x1-14001r1"></a></span># Create the image &#x0022;rose.png&#x0022;: <br /><span class="label"><a 
+ id="x1-14002r2"></a></span>convert rose: rose.png <br /><span class="label"><a 
+ id="x1-14003r3"></a></span> <br /><span class="label"><a 
+ id="x1-14004r4"></a></span># Get information: <br /><span class="label"><a 
+ id="x1-14005r5"></a></span>file rose.png
+   
+   </div>
+                                                                  
+
+                                                                  
+   <h2 class="chapterHead"><span class="titlemark">Chapter 3</span><br /><a 
+ id="x1-150003"></a>Capturing</h2>
+     <ul class="itemize1">
+     <li class="itemize">Save any visible window on an X server and outputs it as an image ﬁle.
+     You can capture a single window, the entire screen, or any rectangular
+     portion of the screen.</li></ul>
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-15002x1">Capture a window:
+     <!--l. 256-->
+     <div class="lstlisting" id="listing-15"><span class="label"><a 
+ id="x1-15003r1"></a></span>import window.png
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-15005x2">Capture a region:
+     <!--l. 262-->
+     <div class="lstlisting" id="listing-16"><span class="label"><a 
+ id="x1-15006r1"></a></span>import <span 
+class="cmsy-10">−</span>frame region.png
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-15008x3">Capture the entire screen:
+     <!--l. 268-->
+     <div class="lstlisting" id="listing-17"><span class="label"><a 
+ id="x1-15009r1"></a></span>import <span 
+class="cmsy-10">−</span>window root screen.png
+     
+     </div>
+     </li></ol>
+                                                                  
+
+                                                                  
+   <h2 class="chapterHead"><span class="titlemark">Chapter 4</span><br /><a 
+ id="x1-160004"></a>Creating &#x0026; converting</h2>
+     <ul class="itemize1">
+     <li class="itemize">Convert between image formats as well as resize an image, blur, crop,
+     despeckle, dither, draw on, ﬂip, join, re-sample, and much more.</li></ul>
+   <h3 class="sectionHead"><span class="titlemark">4.1   </span> <a 
+ id="x1-170004.1"></a>Using built-in images</h3>
+   <!--l. 288-->
+   <div class="lstlisting" id="listing-18"><span class="label"><a 
+ id="x1-17001r1"></a></span># Create a image with a checkerboard. <br /><span class="label"><a 
+ id="x1-17002r2"></a></span>convert <span 
+class="cmsy-10">−</span>size 640x480 pattern:checkerboard checkerboard.png <br /><span class="label"><a 
+ id="x1-17003r3"></a></span> <br /><span class="label"><a 
+ id="x1-17004r4"></a></span># Show percent completion of a task as a shaded cylinder. <br /><span class="label"><a 
+ id="x1-17005r5"></a></span>convert <span 
+class="cmsy-10">−</span>size 320x90 canvas:none <span 
+class="cmsy-10">−</span>stroke snow4 <span 
+class="cmsy-10">−</span>size 1x90 <span 
+class="cmsy-10">−</span>tile gradient:white<span 
+class="cmsy-10">−</span>snow4 \ <br /><span class="label"><a 
+ id="x1-17006r6"></a></span>  <span 
+class="cmsy-10">−</span>draw &#x2019;roundrectangle 16, 5, 304, 85 20,40&#x2019; +tile <span 
+class="cmsy-10">−</span>fill snow \ <br /><span class="label"><a 
+ id="x1-17007r7"></a></span>  <span 
+class="cmsy-10">−</span>draw &#x2019;roundrectangle 264, 5, 304, 85  20,40&#x2019; <span 
+class="cmsy-10">−</span>tile gradient:chartreuse<span 
+class="cmsy-10">−</span>green \ <br /><span class="label"><a 
+ id="x1-17008r8"></a></span>  <span 
+class="cmsy-10">−</span>draw &#x2019;roundrectangle 16,  5, 180, 85  20,40&#x2019; <span 
+class="cmsy-10">−</span>tile gradient:chartreuse1<span 
+class="cmsy-10">−</span>chartreuse3 \ <br /><span class="label"><a 
+ id="x1-17009r9"></a></span>  <span 
+class="cmsy-10">−</span>draw &#x2019;roundrectangle 140, 5, 180, 85  20,40&#x2019; +tile <span 
+class="cmsy-10">−</span>fill none \ <br /><span class="label"><a 
+ id="x1-17010r10"></a></span>  <span 
+class="cmsy-10">−</span>draw &#x2019;roundrectangle 264, 5, 304, 85 20,40&#x2019; <span 
+class="cmsy-10">−</span>strokewidth 2 \ <br /><span class="label"><a 
+ id="x1-17011r11"></a></span>  <span 
+class="cmsy-10">−</span>draw &#x2019;roundrectangle 16, 5, 304, 85 20,40&#x2019; \( +clone <span 
+class="cmsy-10">−</span>background snow4 \ <br /><span class="label"><a 
+ id="x1-17012r12"></a></span>  <span 
+class="cmsy-10">−</span>shadow 80x3+3+3 \) +swap <span 
+class="cmsy-10">−</span>background none <span 
+class="cmsy-10">−</span>layers merge \( +size <span 
+class="cmsy-10">−</span>font Helvetica \ <br /><span class="label"><a 
+ id="x1-17013r13"></a></span>  <span 
+class="cmsy-10">−</span>pointsize 90 <span 
+class="cmsy-10">−</span>strokewidth 1 <span 
+class="cmsy-10">−</span>fill red label:&#x2019;50 %&#x2019; <span 
+class="cmsy-10">−</span>trim +repage \( +clone \ <br /><span class="label"><a 
+ id="x1-17014r14"></a></span>  <span 
+class="cmsy-10">−</span>background firebrick3 <span 
+class="cmsy-10">−</span>shadow 80x3+3+3 \) +swap <span 
+class="cmsy-10">−</span>background none <span 
+class="cmsy-10">−</span>layers merge \) \ <br /><span class="label"><a 
+ id="x1-17015r15"></a></span>  <span 
+class="cmsy-10">−</span>insert 0 <span 
+class="cmsy-10">−</span>gravity center <span 
+class="cmsy-10">−</span>append <span 
+class="cmsy-10">−</span>background white <span 
+class="cmsy-10">−</span>gravity center <span 
+class="cmsy-10">−</span>extent 320x200 \ <br /><span class="label"><a 
+ id="x1-17016r16"></a></span>  png:<span 
+class="cmsy-10">−</span> | display <span 
+class="cmsy-10">−</span>
+   
+   </div>
+<!--l. 309--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">4.2   </span> <a 
+ id="x1-180004.2"></a>Creating animated images</h3>
+<!--l. 314--><p class="noindent" >
+     </p><ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-18002x1">Using a <span 
+class="ecti-1000">globbing </span>parameter:
+     <!--l. 319-->
+     <div class="lstlisting" id="listing-19"><span class="label"><a 
+ id="x1-18003r1"></a></span># Create a sequence of PNG images. <br /><span class="label"><a 
+ id="x1-18004r2"></a></span>wget http://www.hpca.ual.es/~vruiz/videos/tempete_352x288x30x420x260.avi <br /><span class="label"><a 
+ id="x1-18005r3"></a></span>convert tempete_352x288x30x420x260.avi tempete%03d.png <br /><span class="label"><a 
+ id="x1-18006r4"></a></span> <br /><span class="label"><a 
+ id="x1-18007r5"></a></span># Create a GIF animation with a sequence of PNG images. <br /><span class="label"><a 
+ id="x1-18008r6"></a></span>convert <span 
+class="cmsy-10">−</span>loop 0 <span 
+class="cmsy-10">−</span>delay 100 tempete<span 
+class="cmsy-10">∗</span>.png tempete_animated.gif <br /><span class="label"><a 
+ id="x1-18009r7"></a></span>#            ^          ^         ^ <br /><span class="label"><a 
+ id="x1-18010r8"></a></span>#            |          |         | <br /><span class="label"><a 
+ id="x1-18011r9"></a></span>#            |          | filename globbing <br /><span class="label"><a 
+ id="x1-18012r10"></a></span>#            |        delay between images <br /><span class="label"><a 
+ id="x1-18013r11"></a></span>#         Loop forever <br /><span class="label"><a 
+ id="x1-18014r12"></a></span> <br /><span class="label"><a 
+ id="x1-18015r13"></a></span>firefox tempete_animated.gif &#x0026;
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-18017x2">Using a ﬁle with the names of the still images:
+     <!--l. 340-->
+     <div class="lstlisting" id="listing-20"><span class="label"><a 
+ id="x1-18018r1"></a></span>cat &#x003C;&#x003C; EOF &#x003E; example_using_references.sh <br /><span class="label"><a 
+ id="x1-18019r2"></a></span>#!/bin/bash <br /><span class="label"><a 
+ id="x1-18020r3"></a></span> <br /><span class="label"><a 
+ id="x1-18021r4"></a></span>set <span 
+class="cmsy-10">−</span>x <br /><span class="label"><a 
+ id="x1-18022r5"></a></span> <br /><span class="label"><a 
+ id="x1-18023r6"></a></span># Empty file. <br /><span class="label"><a 
+ id="x1-18024r7"></a></span>echo <span 
+class="cmsy-10">−</span>n &#x0022;&#x0022; &#x003E; references.txt <br /><span class="label"><a 
+ id="x1-18025r8"></a></span> <br /><span class="label"><a 
+ id="x1-18026r9"></a></span># Create the &#x0022;references.txt&#x0022; file. <br /><span class="label"><a 
+ id="x1-18027r10"></a></span>for (( i=0; i&#x003C;100; i++ )) <br /><span class="label"><a 
+ id="x1-18028r11"></a></span>do <br /><span class="label"><a 
+ id="x1-18029r12"></a></span>  index_i=\‘printf &#x0022;%02d&#x0022; \$i\‘ # Be carefully with the &#x2019;\‘&#x2019;! <br /><span class="label"><a 
+ id="x1-18030r13"></a></span>  filename=checker<span 
+class="cmsy-10">−</span>\$index_i.png <br /><span class="label"><a 
+ id="x1-18031r14"></a></span>  convert <span 
+class="cmsy-10">−</span>size 256x256 pattern:checkerboard&#x2019;[&#x2019;256x256+\$i+\$i&#x2019;]&#x2019; \$filename <br /><span class="label"><a 
+ id="x1-18032r15"></a></span>  echo \$filename &#x003E;&#x003E; references.txt <br /><span class="label"><a 
+ id="x1-18033r16"></a></span>done <br /><span class="label"><a 
+ id="x1-18034r17"></a></span> <br /><span class="label"><a 
+ id="x1-18035r18"></a></span># Create the movie using the references file. <br /><span class="label"><a 
+ id="x1-18036r19"></a></span>convert @references.txt movie.gif <br /><span class="label"><a 
+ id="x1-18037r20"></a></span> <br /><span class="label"><a 
+ id="x1-18038r21"></a></span>set +x <br /><span class="label"><a 
+ id="x1-18039r22"></a></span>EOF <br /><span class="label"><a 
+ id="x1-18040r23"></a></span> <br /><span class="label"><a 
+ id="x1-18041r24"></a></span>chmod +x example_using_references.sh <br /><span class="label"><a 
+ id="x1-18042r25"></a></span>./example_using_references.sh
+     
+     </div>
+     </li></ol>
+<!--l. 374--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">4.3   </span> <a 
+ id="x1-190004.3"></a>Extracting images from an animated image or video</h3>
+   <!--l. 377-->
+                                                                  
+
+                                                                  
+   <div class="lstlisting" id="listing-21"><span class="label"><a 
+ id="x1-19001r1"></a></span>convert tempete_352x288x30x420x260.avi tempete.gif <br /><span class="label"><a 
+ id="x1-19002r2"></a></span> <br /><span class="label"><a 
+ id="x1-19003r3"></a></span># Extracting the first image of an animated GIF. <br /><span class="label"><a 
+ id="x1-19004r4"></a></span>convert &#x2019;tempete.gif[0]&#x2019; tempete.png <br /><span class="label"><a 
+ id="x1-19005r5"></a></span>display tempete.png <br /><span class="label"><a 
+ id="x1-19006r6"></a></span> <br /><span class="label"><a 
+ id="x1-19007r7"></a></span># Extracting a range of images. <br /><span class="label"><a 
+ id="x1-19008r8"></a></span>convert &#x2019;tempete.gif[0<span 
+class="cmsy-10">−</span>3]&#x2019; tempete.mng <br /><span class="label"><a 
+ id="x1-19009r9"></a></span>display tempete.mng <br /><span class="label"><a 
+ id="x1-19010r10"></a></span> <br /><span class="label"><a 
+ id="x1-19011r11"></a></span># Extracting images out of order. <br /><span class="label"><a 
+ id="x1-19012r12"></a></span>convert &#x2019;tempete.gif[3,2,4]&#x2019; tempete.mng <br /><span class="label"><a 
+ id="x1-19013r13"></a></span>display tempete.mng
+   
+   </div>
+<!--l. 395--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">4.4   </span> <a 
+ id="x1-200004.4"></a>Disolving</h3>
+   <!--l. 398-->
+   <div class="lstlisting" id="listing-22"><span class="label"><a 
+ id="x1-20001r1"></a></span>composite <span 
+class="cmsy-10">−</span>disolve 50% source1.jpg source2.png creation.tif
+   
+   </div>
+<!--l. 404--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">4.5   </span> <a 
+ id="x1-210004.5"></a>Morphing</h3>
+   <!--l. 407-->
+   <div class="lstlisting" id="listing-23"><span class="label"><a 
+ id="x1-21001r1"></a></span>wget http://assets.worldwildlife.org/photos/2090/images/hero_full/Sumatran<span 
+class="cmsy-10">−</span>Tiger<span 
+class="cmsy-10">−</span>Hero.jpg?1345559303 <br /><span class="label"><a 
+ id="x1-21002r2"></a></span>wget http://4.bp.blogspot.com/<span 
+class="cmsy-10">−</span>OHVlacYzSlU/TZBinlfNXzI/AAAAAAAAEFI/tqaeTB2wfTA/s1600/Clara%20Lago%20Pictures.jpg <br /><span class="label"><a 
+ id="x1-21003r3"></a></span>convert <span 
+class="cmsy-10">−</span>morph 50 Sumatran<span 
+class="cmsy-10">−</span>Tiger<span 
+class="cmsy-10">−</span>Hero.jpg\?1345559303 Clara\ Lago\ Pictures.jpg output.mng
+   
+   </div>
+<!--l. 415--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">4.6   </span> <a 
+ id="x1-220004.6"></a>Watermarking</h3>
+<!--l. 418--><p class="noindent" >
+     </p><ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-22002x1">Visible:
+     <!--l. 422-->
+     <div class="lstlisting" id="listing-24"><span class="label"><a 
+ id="x1-22003r1"></a></span># No offset: <br /><span class="label"><a 
+ id="x1-22004r2"></a></span>composite <span 
+class="cmsy-10">−</span>watermark 50% mark.png foreground.jpg output.png <br /><span class="label"><a 
+ id="x1-22005r3"></a></span> <br /><span class="label"><a 
+ id="x1-22006r4"></a></span># Centering the mark: <br /><span class="label"><a 
+ id="x1-22007r5"></a></span>composite <span 
+class="cmsy-10">−</span>watermarck 40% <span 
+class="cmsy-10">−</span>gravity center marck.jpg foreground.jpg output.jpg
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-22009x2">Invisible:
+     <!--l. 432-->
+     <div class="lstlisting" id="listing-25"><span class="label"><a 
+ id="x1-22010r1"></a></span># Hide ‘‘hidden_mark.png&#x2019;&#x2019; inside of ‘‘foreground.jpg&#x2019;&#x2019;: <br /><span class="label"><a 
+ id="x1-22011r2"></a></span>composite <span 
+class="cmsy-10">−</span>stegano 101 hidden_mark.png foreground.jpg output.jpg <br /><span class="label"><a 
+ id="x1-22012r3"></a></span>#                   ^ <br /><span class="label"><a 
+ id="x1-22013r4"></a></span>#                   | <br /><span class="label"><a 
+ id="x1-22014r5"></a></span>#       offset of the hidden mark <br /><span class="label"><a 
+ id="x1-22015r6"></a></span> <br /><span class="label"><a 
+ id="x1-22016r7"></a></span># Extract the hidden image: <br /><span class="label"><a 
+ id="x1-22017r8"></a></span>display 200x100+101 stegano:output.png <br /><span class="label"><a 
+ id="x1-22018r9"></a></span>#          ^     ^ <br /><span class="label"><a 
+ id="x1-22019r10"></a></span>#          |     | <br /><span class="label"><a 
+ id="x1-22020r11"></a></span>#          | offset of the hidden mark <br /><span class="label"><a 
+ id="x1-22021r12"></a></span>#  size of the hidden marck
+     
+                                                                  
+
+                                                                  
+     </div>
+     </li></ol>
+<!--l. 451--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">4.7   </span> <a 
+ id="x1-230004.7"></a>Removing and putting on headers</h3>
+   <!--l. 454-->
+   <div class="lstlisting" id="listing-26"><span class="label"><a 
+ id="x1-23001r1"></a></span>file tempete000.png <br /><span class="label"><a 
+ id="x1-23002r2"></a></span># tempete000.png: PNG image data, 352 x 288, 8<span 
+class="cmsy-10">−</span>bit/color RGB, non<span 
+class="cmsy-10">−</span>interlaced
+   
+   </div>
+   <!--l. 458-->
+   <div class="lstlisting" id="listing-27"><span class="label"><a 
+ id="x1-23003r1"></a></span>convert tempete000.png rgb:tempete_352x288_8bpp_rgb.raw <br /><span class="label"><a 
+ id="x1-23004r2"></a></span>#                      ^^^ <br /><span class="label"><a 
+ id="x1-23005r3"></a></span>#    We specify an explicit output image format.
+   
+   </div>
+<!--l. 463--><p class="noindent" > <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">#</span><span 
+class="ectt-1000"> See</span><span 
+class="ectt-1000"> Section</span></span></span> <a 
+href="#x1-180004.2"><span 
+class="ectt-1000">4.2</span><!--tex4ht:ref: animated --></a> <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">to</span><span 
+class="ectt-1000"> create</span><span 
+class="ectt-1000"> tempete000.png.</span></span></span> </p><!--l. 464-->
+   <div class="lstlisting" id="listing-28"><span class="label"><a 
+ id="x1-23006r1"></a></span>convert <span 
+class="cmsy-10">−</span>size 352x288 <span 
+class="cmsy-10">−</span>depth 8 rgb:tempete.rgb tempete.gif <br /><span class="label"><a 
+ id="x1-23007r2"></a></span>#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^ <br /><span class="label"><a 
+ id="x1-23008r3"></a></span> <br /><span class="label"><a 
+ id="x1-23009r4"></a></span># &#x0022;raw_image&#x0022; is an input collection of 640x480 RGB samples without any header: <br /><span class="label"><a 
+ id="x1-23010r5"></a></span>convert <span 
+class="cmsy-10">−</span>size 640x480 <span 
+class="cmsy-10">−</span>depth 8 rgb:raw_image image.png <br /><span class="label"><a 
+ id="x1-23011r6"></a></span>#                              ^^^
+   
+   </div>
+                                                                  
+
+                                                                  
+   <h2 class="chapterHead"><span class="titlemark">Chapter 5</span><br /><a 
+ id="x1-240005"></a>Comparing</h2>
+   <h3 class="sectionHead"><span class="titlemark">5.1   </span> <a 
+ id="x1-250005.1"></a>Compare two images</h3>
+   <!--l. 482-->
+   <div class="lstlisting" id="listing-29"><span class="label"><a 
+ id="x1-25001r1"></a></span>compare image1.png image2.png difference.png
+   
+   </div>
+                                                                  
+
+                                                                  
+   <h2 class="chapterHead"><span class="titlemark">Chapter 6</span><br /><a 
+ id="x1-260006"></a>Composing</h2>
+   <h3 class="sectionHead"><span class="titlemark">6.1   </span> <a 
+ id="x1-270006.1"></a>Overlaping images</h3>
+   <!--l. 494-->
+   <div class="lstlisting" id="listing-30"><span class="label"><a 
+ id="x1-27001r1"></a></span>composite first.png second.png composite.png
+   
+   </div>
+<!--l. 500--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">6.2   </span> <a 
+ id="x1-280006.2"></a>Montaging</h3>
+     <ul class="itemize1">
+     <li class="itemize">Create a composite image by combining several separate images. The images
+     are tiled on the composite image optionally adorned with a border, frame,
+     image name, and more. <!--l. 507-->
+     <div class="lstlisting" id="listing-31"><span class="label"><a 
+ id="x1-28001r1"></a></span>montage <span 
+class="cmsy-10">−</span>label %f <span 
+class="cmsy-10">−</span>frame 10 <span 
+class="cmsy-10">−</span>shadow <span 
+class="cmsy-10">−</span>tile 4 <span 
+class="cmsy-10">∗</span>.jpg output.jpg <br /><span class="label"><a 
+ id="x1-28002r2"></a></span>#              ^         ^   ^            ^ <br /><span class="label"><a 
+ id="x1-28003r3"></a></span>#              |         |   |            | <br /><span class="label"><a 
+ id="x1-28004r4"></a></span>#              |         |   |  number of images per row <br /><span class="label"><a 
+ id="x1-28005r5"></a></span>#              |         | create a shadow for each image <br /><span class="label"><a 
+ id="x1-28006r6"></a></span>#              |     use a frame os 10 pixels <br /><span class="label"><a 
+ id="x1-28007r7"></a></span>#            filename
+     
+     </div>
+     </li></ul>
+                                                                  
+
+                                                                  
+   <h2 class="chapterHead"><span class="titlemark">Chapter 7</span><br /><a 
+ id="x1-290007"></a>Processing</h2>
+   <h3 class="sectionHead"><span class="titlemark">7.1   </span> <a 
+ id="x1-300007.1"></a>Reducing the number of colors</h3>
+   <!--l. 538-->
+   <div class="lstlisting" id="listing-32"><span class="label"><a 
+ id="x1-30001r1"></a></span>convert <span 
+class="cmsy-10">−</span>colors 256 input.tif output.png <br /><span class="label"><a 
+ id="x1-30002r2"></a></span># or <br /><span class="label"><a 
+ id="x1-30003r3"></a></span>convert <span 
+class="cmsy-10">−</span>depth 8 input.tif output.png
+   
+   </div>
+<!--l. 546--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.2   </span> <a 
+ id="x1-310007.2"></a>Chroma subsampling</h3>
+   <!--l. 549-->
+   <div class="lstlisting" id="listing-33"><span class="label"><a 
+ id="x1-31001r1"></a></span># Selects YUV 4:2:2 chroma subsampling: <br /><span class="label"><a 
+ id="x1-31002r2"></a></span>convert <span 
+class="cmsy-10">−</span>sampling<span 
+class="cmsy-10">−</span>factor 2x1 input.png output.png
+   
+   </div>
+<!--l. 556--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.3   </span> <a 
+ id="x1-320007.3"></a>Changing the quality</h3>
+<!--l. 559--><p class="noindent" >
+     </p><ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-32002x1">In JPEG: <!--l. 561-->
+     <div class="lstlisting" id="listing-34"><span class="label"><a 
+ id="x1-32003r1"></a></span>convert <span 
+class="cmsy-10">−</span>quality 15% input.png output.jpg
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-32005x2">In JPEG2000: <!--l. 566-->
+     <div class="lstlisting" id="listing-35"><span class="label"><a 
+ id="x1-32006r1"></a></span>convert <span 
+class="cmsy-10">−</span>quality 15% input.png <span 
+class="cmsy-10">−</span>define &#x0022;jp2:rate=1.0&#x0022; output.jp2
+     
+     </div>
+     </li></ol>
+                                                                  
+
+                                                                  
+<!--l. 573--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.4   </span> <a 
+ id="x1-330007.4"></a>Gamma correction</h3>
+   <!--l. 576-->
+   <div class="lstlisting" id="listing-36"><span class="label"><a 
+ id="x1-33001r1"></a></span>conver <span 
+class="cmsy-10">−</span>gamma 1.5,1.6,0.9 input.png output.png
+   
+   </div>
+<!--l. 582--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.5   </span> <a 
+ id="x1-340007.5"></a>Transparency</h3>
+   <!--l. 585-->
+   <div class="lstlisting" id="listing-37"><span class="label"><a 
+ id="x1-34001r1"></a></span># Pure red will be transparent: <br /><span class="label"><a 
+ id="x1-34002r2"></a></span>convert <span 
+class="cmsy-10">−</span>transparent red input.gif output.gif
+   
+   </div>
+<!--l. 592--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.6   </span> <a 
+ id="x1-350007.6"></a>Scale</h3>
+<!--l. 595--><p class="noindent" >Inline (while reading) multiple image processing: </p><!--l. 596-->
+   <div class="lstlisting" id="listing-38"><span class="label"><a 
+ id="x1-35001r1"></a></span># Creates a 120x120 PNG thumbnail of each input image in the current directory. Each <br /><span class="label"><a 
+ id="x1-35002r2"></a></span># image is processed as follows: read <span 
+class="cmsy-10">−</span>&#x003E; resize <span 
+class="cmsy-10">−</span>&#x003E; write. <br /><span class="label"><a 
+ id="x1-35003r3"></a></span>convert &#x2019;tempete<span 
+class="cmsy-10">∗</span>.png[120x120]&#x2019; tempete_thumbnail%03d.png <br /><span class="label"><a 
+ id="x1-35004r4"></a></span>animate tempete_thumbnail<span 
+class="cmsy-10">∗</span>.png
+   
+   </div>
+<!--l. 605--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.7   </span> <a 
+ id="x1-360007.7"></a>Crop</h3>
+   <!--l. 608-->
+   <div class="lstlisting" id="listing-39"><span class="label"><a 
+ id="x1-36001r1"></a></span>identify tempete000.png <br /><span class="label"><a 
+ id="x1-36002r2"></a></span># tempete000.png PNG 352x288 352x288+0+0 8<span 
+class="cmsy-10">−</span>bit DirectClass 200KB 0.000u 0:00.000 <br /><span class="label"><a 
+ id="x1-36003r3"></a></span>#                                    ^ ^ <br /><span class="label"><a 
+ id="x1-36004r4"></a></span>#     These offsets are important because should be added to &#x0022;xo&#x0022; and &#x0022;yo&#x0022;! <br /><span class="label"><a 
+ id="x1-36005r5"></a></span> <br /><span class="label"><a 
+ id="x1-36006r6"></a></span>convert &#x2019;tempete000.png[100x200+50+50]&#x2019; <span 
+class="cmsy-10">−</span> | display <span 
+class="cmsy-10">−</span> <br /><span class="label"><a 
+ id="x1-36007r7"></a></span>#                       ^^^ ^^^ ^^ ^^ <br /><span class="label"><a 
+ id="x1-36008r8"></a></span>#                       col row xo yo <br /><span class="label"><a 
+ id="x1-36009r9"></a></span># col = column, row = row, xo = x offset, yo = y offset. <br /><span class="label"><a 
+ id="x1-36010r10"></a></span> <br /><span class="label"><a 
+ id="x1-36011r11"></a></span># The same as previous example, but using (inline, while reading) cropping instead resizing. <br /><span class="label"><a 
+ id="x1-36012r12"></a></span>convert &#x2019;<span 
+class="cmsy-10">∗</span>.jpg[120x120+10+5]&#x2019; thumbnail%03d.png
+   
+   </div>
+                                                                  
+
+                                                                  
+<!--l. 625--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.8   </span> <a 
+ id="x1-370007.8"></a>Manipulating contrast</h3>
+     <ul class="itemize1">
+     <li class="itemize">The <a 
+href="http://en.wikipedia.org/wiki/Contrast_(vision)" >contrast</a> is the diﬀerence in luminance to make and object distinguishable.
+     <!--l. 632-->
+     <div class="lstlisting" id="listing-40"><span class="label"><a 
+ id="x1-37001r1"></a></span># Increasing: <br /><span class="label"><a 
+ id="x1-37002r2"></a></span>convert <span 
+class="cmsy-10">−</span>constrast input.png output.png <br /><span class="label"><a 
+ id="x1-37003r3"></a></span> <br /><span class="label"><a 
+ id="x1-37004r4"></a></span># Decreasing: <br /><span class="label"><a 
+ id="x1-37005r5"></a></span>convert +constrast input.png output.png
+     
+     </div>
+     </li></ul>
+<!--l. 644--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.9   </span> <a 
+ id="x1-380007.9"></a>Dithering</h3>
+     <ul class="itemize1">
+     <li class="itemize">Reduces the number of colors. <!--l. 649-->
+     <div class="lstlisting" id="listing-41"><span class="label"><a 
+ id="x1-38001r1"></a></span># Using 2 colors: <br /><span class="label"><a 
+ id="x1-38002r2"></a></span>convert <span 
+class="cmsy-10">−</span>dither <span 
+class="cmsy-10">−</span>monochrome input.png output.png <br /><span class="label"><a 
+ id="x1-38003r3"></a></span> <br /><span class="label"><a 
+ id="x1-38004r4"></a></span># Using 4 colors: <br /><span class="label"><a 
+ id="x1-38005r5"></a></span>convert <span 
+class="cmsy-10">−</span>dither <span 
+class="cmsy-10">−</span>colors 4 input.png output.png
+     
+     </div>
+     </li></ul>
+<!--l. 661--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.10   </span> <a 
+ id="x1-390007.10"></a>Equalizing</h3>
+     <ul class="itemize1">
+     <li class="itemize">Increases the dynamic range of the colors of the image. <!--l. 666-->
+     <div class="lstlisting" id="listing-42"><span class="label"><a 
+ id="x1-39001r1"></a></span>convert <span 
+class="cmsy-10">−</span>equalize input.png output.png
+     
+     </div>
+     </li></ul>
+                                                                  
+
+                                                                  
+<!--l. 675--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.11   </span> <a 
+ id="x1-400007.11"></a>Normalizing</h3>
+     <ul class="itemize1">
+     <li class="itemize">Increases the dynamic range of the colors of the image. <!--l. 680-->
+     <div class="lstlisting" id="listing-43"><span class="label"><a 
+ id="x1-40001r1"></a></span>convert <span 
+class="cmsy-10">−</span>normalize input.png output.png
+     
+     </div>
+     </li></ul>
+<!--l. 692--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.12   </span> <a 
+ id="x1-410007.12"></a>Bluring</h3>
+     <ul class="itemize1">
+     <li class="itemize">Low pass ﬁltering: <!--l. 697-->
+     <div class="lstlisting" id="listing-44"><span class="label"><a 
+ id="x1-41001r1"></a></span>convert <span 
+class="cmsy-10">−</span>blur 10 input.png output.png <br /><span class="label"><a 
+ id="x1-41002r2"></a></span>#             ^ <br /><span class="label"><a 
+ id="x1-41003r3"></a></span>#             | <br /><span class="label"><a 
+ id="x1-41004r4"></a></span>#          radius <br /><span class="label"><a 
+ id="x1-41005r5"></a></span> <br /><span class="label"><a 
+ id="x1-41006r6"></a></span>conver <span 
+class="cmsy-10">−</span>blur 7x3 input.opng output.png <br /><span class="label"><a 
+ id="x1-41007r7"></a></span>#             ^ <br /><span class="label"><a 
+ id="x1-41008r8"></a></span>#             | <br /><span class="label"><a 
+ id="x1-41009r9"></a></span>#          size of the convolutional mask
+     
+     </div>
+     </li></ul>
+<!--l. 713--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.13   </span> <a 
+ id="x1-420007.13"></a>The <span 
+class="ecti-1000">charcoal </span>eﬀect</h3>
+     <ul class="itemize1">
+     <li class="itemize">High pass ﬁltering: <!--l. 718-->
+     <div class="lstlisting" id="listing-45"><span class="label"><a 
+ id="x1-42001r1"></a></span>convert <span 
+class="cmsy-10">−</span>charcoal 2 input.png output.png <br /><span class="label"><a 
+ id="x1-42002r2"></a></span>#                 ^ <br /><span class="label"><a 
+ id="x1-42003r3"></a></span>#                 | <br /><span class="label"><a 
+ id="x1-42004r4"></a></span>#       thicknes of the boundaries
+     
+     </div>
+     </li></ul>
+                                                                  
+
+                                                                  
+<!--l. 730--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.14   </span> <a 
+ id="x1-430007.14"></a>The <span 
+class="ecti-1000">impode </span>eﬀect</h3>
+     <ul class="itemize1">
+     <li class="itemize">A sink eﬀect: <!--l. 735-->
+     <div class="lstlisting" id="listing-46"><span class="label"><a 
+ id="x1-43001r1"></a></span>convert <span 
+class="cmsy-10">−</span>implode 2 input.png output.png <br /><span class="label"><a 
+ id="x1-43002r2"></a></span>#                ^ <br /><span class="label"><a 
+ id="x1-43003r3"></a></span>#                | <br /><span class="label"><a 
+ id="x1-43004r4"></a></span>#             factor
+     
+     </div>
+     </li></ul>
+<!--l. 745--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.15   </span> <a 
+ id="x1-440007.15"></a>Denoising</h3>
+     <ul class="itemize1">
+     <li class="itemize">Removes noise: <!--l. 750-->
+     <div class="lstlisting" id="listing-47"><span class="label"><a 
+ id="x1-44001r1"></a></span>convert <span 
+class="cmsy-10">−</span>noise 3 input.png output.png <br /><span class="label"><a 
+ id="x1-44002r2"></a></span>#              ^ <br /><span class="label"><a 
+ id="x1-44003r3"></a></span>#              | <br /><span class="label"><a 
+ id="x1-44004r4"></a></span>#            radii
+     
+     </div>
+     </li></ul>
+<!--l. 761--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.16   </span> <a 
+ id="x1-450007.16"></a>The <span 
+class="ecti-1000">paint </span>eﬀect</h3>
+     <ul class="itemize1">
+     <li class="itemize">Simulates oil painting: <!--l. 766-->
+     <div class="lstlisting" id="listing-48"><span class="label"><a 
+ id="x1-45001r1"></a></span>convert <span 
+class="cmsy-10">−</span>paint 3 input.png output.png <br /><span class="label"><a 
+ id="x1-45002r2"></a></span>#              ^ <br /><span class="label"><a 
+ id="x1-45003r3"></a></span>#              | <br /><span class="label"><a 
+ id="x1-45004r4"></a></span>#            radii
+     
+     </div>
+     </li></ul>
+                                                                  
+
+                                                                  
+<!--l. 776--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.17   </span> <a 
+ id="x1-460007.17"></a>The <span 
+class="ecti-1000">radial-blur </span>eﬀect</h3>
+     <ul class="itemize1">
+     <li class="itemize">Simulates oil painting: <!--l. 781-->
+     <div class="lstlisting" id="listing-49"><span class="label"><a 
+ id="x1-46001r1"></a></span>convert <span 
+class="cmsy-10">−</span>radial<span 
+class="cmsy-10">−</span>blur 30 input.png output.png <br /><span class="label"><a 
+ id="x1-46002r2"></a></span>#                     ^ <br /><span class="label"><a 
+ id="x1-46003r3"></a></span>#                     | <br /><span class="label"><a 
+ id="x1-46004r4"></a></span>#                   angle
+     
+     </div>
+     </li></ul>
+<!--l. 793--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.18   </span> <a 
+ id="x1-470007.18"></a>Sementing</h3>
+     <ul class="itemize1">
+     <li class="itemize">Automatic image segmentation: <!--l. 798-->
+     <div class="lstlisting" id="listing-50"><span class="label"><a 
+ id="x1-47001r1"></a></span>convert <span 
+class="cmsy-10">−</span>segment 1.75x2.0 input.png output.png <br /><span class="label"><a 
+ id="x1-47002r2"></a></span>#                  ^   ^ <br /><span class="label"><a 
+ id="x1-47003r3"></a></span>#                  |   | <br /><span class="label"><a 
+ id="x1-47004r4"></a></span>#                  | smoothing <br /><span class="label"><a 
+ id="x1-47005r5"></a></span>#                clustering
+     
+     </div>
+     </li></ul>
+<!--l. 809--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.19   </span> <a 
+ id="x1-480007.19"></a>The <span 
+class="ecti-1000">sepia-tone </span>eﬀect</h3>
+     <ul class="itemize1">
+     <li class="itemize">A vintage eﬀect: <!--l. 814-->
+     <div class="lstlisting" id="listing-51"><span class="label"><a 
+ id="x1-48001r1"></a></span>convert <span 
+class="cmsy-10">−</span>sepia<span 
+class="cmsy-10">−</span>tone 75% input.png output.png <br /><span class="label"><a 
+ id="x1-48002r2"></a></span>#                    ^ <br /><span class="label"><a 
+ id="x1-48003r3"></a></span>#                    | <br /><span class="label"><a 
+ id="x1-48004r4"></a></span>#                percentage
+     
+     </div>
+     </li></ul>
+                                                                  
+
+                                                                  
+<!--l. 824--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.20   </span> <a 
+ id="x1-490007.20"></a>The <span 
+class="ecti-1000">shade </span>eﬀect</h3>
+     <ul class="itemize1">
+     <li class="itemize">Produces shades: <!--l. 829-->
+     <div class="lstlisting" id="listing-52"><span class="label"><a 
+ id="x1-49001r1"></a></span>convert <span 
+class="cmsy-10">−</span>shade 0x10 input.png output.png <br /><span class="label"><a 
+ id="x1-49002r2"></a></span>#              ^  ^ <br /><span class="label"><a 
+ id="x1-49003r3"></a></span>#              |  | <br /><span class="label"><a 
+ id="x1-49004r4"></a></span>#              | elevation of the source of light <br /><span class="label"><a 
+ id="x1-49005r5"></a></span>#             azimuth
+     
+     </div>
+     </li></ul>
+<!--l. 840--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.21   </span> <a 
+ id="x1-500007.21"></a>Sharpenning</h3>
+     <ul class="itemize1">
+     <li class="itemize">Using a Gaussian ﬁltering to enhance the color boundaries: <!--l. 845-->
+     <div class="lstlisting" id="listing-53"><span class="label"><a 
+ id="x1-50001r1"></a></span>convert <span 
+class="cmsy-10">−</span>sharpen 3x6 input.png output.png <br /><span class="label"><a 
+ id="x1-50002r2"></a></span>#                ^  ^ <br /><span class="label"><a 
+ id="x1-50003r3"></a></span>#                |  | <br /><span class="label"><a 
+ id="x1-50004r4"></a></span>#                | standard deviation <br /><span class="label"><a 
+ id="x1-50005r5"></a></span>#               radii
+     
+     </div>
+     </li></ul>
+<!--l. 856--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.22   </span> <a 
+ id="x1-510007.22"></a>Negating</h3>
+     <ul class="itemize1">
+     <li class="itemize">A negative eﬀect: <!--l. 861-->
+     <div class="lstlisting" id="listing-54"><span class="label"><a 
+ id="x1-51001r1"></a></span>convert <span 
+class="cmsy-10">−</span>negate input.png output.png
+     
+     </div>
+     </li></ul>
+                                                                  
+
+                                                                  
+<!--l. 868--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.23   </span> <a 
+ id="x1-520007.23"></a>The <span 
+class="ecti-1000">solarize </span>eﬀect</h3>
+     <ul class="itemize1">
+     <li class="itemize">Another negative eﬀect: <!--l. 873-->
+     <div class="lstlisting" id="listing-55"><span class="label"><a 
+ id="x1-52001r1"></a></span>convert <span 
+class="cmsy-10">−</span>solarize 30 input.png output.png <br /><span class="label"><a 
+ id="x1-52002r2"></a></span>#                  ^ <br /><span class="label"><a 
+ id="x1-52003r3"></a></span>#                  | <br /><span class="label"><a 
+ id="x1-52004r4"></a></span>#               factor
+     
+     </div>
+     </li></ul>
+<!--l. 884--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.24   </span> <a 
+ id="x1-530007.24"></a>The <span 
+class="ecti-1000">spread </span>eﬀect</h3>
+     <ul class="itemize1">
+     <li class="itemize">Swaps pixels randomly: <!--l. 889-->
+     <div class="lstlisting" id="listing-56"><span class="label"><a 
+ id="x1-53001r1"></a></span>convert <span 
+class="cmsy-10">−</span>spread 7 input.png output.png <br /><span class="label"><a 
+ id="x1-53002r2"></a></span>#               ^ <br /><span class="label"><a 
+ id="x1-53003r3"></a></span>#               | <br /><span class="label"><a 
+ id="x1-53004r4"></a></span>#             radii
+     
+     </div>
+     </li></ul>
+<!--l. 902--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.25   </span> <a 
+ id="x1-540007.25"></a>The <span 
+class="ecti-1000">wave </span>eﬀect</h3>
+     <ul class="itemize1">
+     <li class="itemize">Shakes the image: <!--l. 907-->
+     <div class="lstlisting" id="listing-57"><span class="label"><a 
+ id="x1-54001r1"></a></span>convert <span 
+class="cmsy-10">−</span>wave 10x90 input.png output.png <br /><span class="label"><a 
+ id="x1-54002r2"></a></span>#              ^  ^ <br /><span class="label"><a 
+ id="x1-54003r3"></a></span>#              |  | <br /><span class="label"><a 
+ id="x1-54004r4"></a></span>#              | frequency <br /><span class="label"><a 
+ id="x1-54005r5"></a></span>#           amplitude
+     
+     </div>
+     </li></ul>
+                                                                  
+
+                                                                  
+   <h2 class="chapterHead"><span class="titlemark">Chapter 8</span><br /><a 
+ id="x1-550008"></a>Editing</h2>
+   <h3 class="sectionHead"><span class="titlemark">8.1   </span> <a 
+ id="x1-560008.1"></a>Annotating</h3>
+     <ul class="itemize1">
+     <li class="itemize">Put text inside images. <!--l. 930-->
+     <div class="lstlisting" id="listing-58"><span class="label"><a 
+ id="x1-56001r1"></a></span>convert <span 
+class="cmsy-10">−</span>annotate 0x0+30+40 <span 
+class="cmsy-10">−</span>stroke blue <span 
+class="cmsy-10">−</span>fill red ‘‘text&#x2019;&#x2019; input.png output.png <br /><span class="label"><a 
+ id="x1-56002r2"></a></span>#                     ^  ^ <br /><span class="label"><a 
+ id="x1-56003r3"></a></span>#                     |  | <br /><span class="label"><a 
+ id="x1-56004r4"></a></span>#                     | Y offset <br /><span class="label"><a 
+ id="x1-56005r5"></a></span>#                    X offset
+     
+     </div>
+     </li></ul>
+<!--l. 942--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.2   </span> <a 
+ id="x1-570008.2"></a>Removing metadata</h3>
+   <!--l. 945-->
+   <div class="lstlisting" id="listing-59"><span class="label"><a 
+ id="x1-57001r1"></a></span>identify <span 
+class="cmsy-10">−</span>verbose input.jpg <br /><span class="label"><a 
+ id="x1-57002r2"></a></span>convert <span 
+class="cmsy-10">−</span>strip input.jpg output.jpg <br /><span class="label"><a 
+ id="x1-57003r3"></a></span>identify <span 
+class="cmsy-10">−</span>verbose output.jpg
+   
+   </div>
+<!--l. 953--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.3   </span> <a 
+ id="x1-580008.3"></a>Change metadata</h3>
+   <!--l. 956-->
+   <div class="lstlisting" id="listing-60"><span class="label"><a 
+ id="x1-58001r1"></a></span>convert <span 
+class="cmsy-10">−</span>comment ‘‘This image was created by ...&#x2019;&#x2019; input.jpg output.jpg <br /><span class="label"><a 
+ id="x1-58002r2"></a></span>convert <span 
+class="cmsy-10">−</span>density 150x150 <span 
+class="cmsy-10">−</span>units PixelsPerInch input.jpg output.jpg
+   
+   </div>
+<!--l. 963--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.4   </span> <a 
+ id="x1-590008.4"></a>Scaling</h3>
+<!--l. 966--><p class="noindent" >
+     </p><ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-59002x1">Absolute size:
+     <!--l. 970-->
+                                                                  
+
+                                                                  
+     <div class="lstlisting" id="listing-61"><span class="label"><a 
+ id="x1-59003r1"></a></span>convert <span 
+class="cmsy-10">−</span>resize 352x288 input.jpg output.jpg
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-59005x2">Maximum size (not larger than) and conserving the width/height ratio:
+     <!--l. 976-->
+     <div class="lstlisting" id="listing-62"><span class="label"><a 
+ id="x1-59006r1"></a></span>convert <span 
+class="cmsy-10">−</span>resize 352x288&#x003C; input.jpg output.jpg
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-59008x3">Minimum size (not smaller than) and conserving the width/height
+     ratio:
+     <!--l. 982-->
+     <div class="lstlisting" id="listing-63"><span class="label"><a 
+ id="x1-59009r1"></a></span>convert <span 
+class="cmsy-10">−</span>resize 352x288&#x003E; input.jpg output.jpg
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-59011x4">Percentage change:
+     <!--l. 988-->
+     <div class="lstlisting" id="listing-64"><span class="label"><a 
+ id="x1-59012r1"></a></span>convert <span 
+class="cmsy-10">−</span>resize 25% input.jpg output.jpg
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-59014x5">Maximun number of pixels:
+     <!--l. 994-->
+     <div class="lstlisting" id="listing-65"><span class="label"><a 
+ id="x1-59015r1"></a></span>convert <span 
+class="cmsy-10">−</span>resize 25000@ input.jpg output.jpg
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-59017x6">Sampling (changes both, the resolution and the image size): <!--l. 999-->
+     <div class="lstlisting" id="listing-66"><span class="label"><a 
+ id="x1-59018r1"></a></span>convert <span 
+class="cmsy-10">−</span>sample 250% input.jpg output.jpg
+     
+     </div>
+                                                                  
+
+                                                                  
+     </li>
+     <li 
+  class="enumerate" id="x1-59020x7">Resampling (in dots per inch). It changes the resolution, but not the
+     size:
+     <!--l. 1005-->
+     <div class="lstlisting" id="listing-67"><span class="label"><a 
+ id="x1-59021r1"></a></span>convert <span 
+class="cmsy-10">−</span>resample 150x150 input.jpg output.jpg
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-59023x8">Using a faster (but unaccurate) algorithm:
+     <!--l. 1011-->
+     <div class="lstlisting" id="listing-68"><span class="label"><a 
+ id="x1-59024r1"></a></span>convert <span 
+class="cmsy-10">−</span>scale 200% input.jpg output.jpg
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-59026x9">Thumbnails:
+     <!--l. 1017-->
+     <div class="lstlisting" id="listing-69"><span class="label"><a 
+ id="x1-59027r1"></a></span># Only one image: <br /><span class="label"><a 
+ id="x1-59028r2"></a></span>convert <span 
+class="cmsy-10">−</span>thumbnail 10% input.jpg output.jpg
+     
+     </div>
+     <!--l. 1022-->
+     <div class="lstlisting" id="listing-70"><span class="label"><a 
+ id="x1-59029r1"></a></span># A group of images (this example does not overwrites the original images): <br /><span class="label"><a 
+ id="x1-59030r2"></a></span>mogrify <span 
+class="cmsy-10">−</span>format png <span 
+class="cmsy-10">−</span>thumbnail 15% <span 
+class="cmsy-10">∗</span>.jpg
+     
+     </div>
+     </li></ol>
+<!--l. 1032--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.5   </span> <a 
+ id="x1-600008.5"></a>Rotating</h3>
+   <!--l. 1035-->
+   <div class="lstlisting" id="listing-71"><span class="label"><a 
+ id="x1-60001r1"></a></span>convert <span 
+class="cmsy-10">−</span>rotate <span 
+class="cmsy-10">−</span>75 input.png output.png
+   
+   </div>
+                                                                  
+
+                                                                  
+<!--l. 1041--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.6   </span> <a 
+ id="x1-610008.6"></a>Flipping</h3>
+   <!--l. 1044-->
+   <div class="lstlisting" id="listing-72"><span class="label"><a 
+ id="x1-61001r1"></a></span># Vertically: <br /><span class="label"><a 
+ id="x1-61002r2"></a></span>convert <span 
+class="cmsy-10">−</span>flip input.png output.png <br /><span class="label"><a 
+ id="x1-61003r3"></a></span> <br /><span class="label"><a 
+ id="x1-61004r4"></a></span># Horizontaally: <br /><span class="label"><a 
+ id="x1-61005r5"></a></span>convert <span 
+class="cmsy-10">−</span>flop input.png output.png
+   
+   </div>
+<!--l. 1054--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.7   </span> <a 
+ id="x1-620008.7"></a>Shearing</h3>
+     <ul class="itemize1">
+     <li class="itemize">Put the input image at an angle.
+     <!--l. 1060-->
+     <div class="lstlisting" id="listing-73"><span class="label"><a 
+ id="x1-62001r1"></a></span>convert <span 
+class="cmsy-10">−</span>shear 45x10 input.png output.png <br /><span class="label"><a 
+ id="x1-62002r2"></a></span>#               ^  ^ <br /><span class="label"><a 
+ id="x1-62003r3"></a></span>#               |  | <br /><span class="label"><a 
+ id="x1-62004r4"></a></span>#               | vertical shearing <br /><span class="label"><a 
+ id="x1-62005r5"></a></span>#             horizontal
+     
+     </div>
+     </li></ul>
+<!--l. 1072--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.8   </span> <a 
+ id="x1-630008.8"></a>Averaging</h3>
+   <!--l. 1075-->
+   <div class="lstlisting" id="listing-74"><span class="label"><a 
+ id="x1-63001r1"></a></span>convert <span 
+class="cmsy-10">−</span>average <span 
+class="cmsy-10">∗</span>.png output.png
+   
+   </div>
+<!--l. 1081--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.9   </span> <a 
+ id="x1-640008.9"></a>Cropping</h3>
+<!--l. 1084--><p class="noindent" >
+     </p><ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-64002x1">Extract a subregion:
+     <!--l. 1088-->
+                                                                  
+
+                                                                  
+     <div class="lstlisting" id="listing-75"><span class="label"><a 
+ id="x1-64003r1"></a></span>convert <span 
+class="cmsy-10">−</span>crop 999x768+100+200 input.png output.png <br /><span class="label"><a 
+ id="x1-64004r2"></a></span>#              ^   ^   ^   ^ <br /><span class="label"><a 
+ id="x1-64005r3"></a></span>#              |   |   |   | <br /><span class="label"><a 
+ id="x1-64006r4"></a></span>#              |   |   | Y offset <br /><span class="label"><a 
+ id="x1-64007r5"></a></span>#              |   | X offset <br /><span class="label"><a 
+ id="x1-64008r6"></a></span>#              | height of the extracted image <br /><span class="label"><a 
+ id="x1-64009r7"></a></span>#            width of the extracted image
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-64011x2">Remove a border:
+     <!--l. 1100-->
+     <div class="lstlisting" id="listing-76"><span class="label"><a 
+ id="x1-64012r1"></a></span>convert <span 
+class="cmsy-10">−</span>shave 10x10 input.jpg output.jpg
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-64014x3">Remove the constant border:
+     <!--l. 1106-->
+     <div class="lstlisting" id="listing-77"><span class="label"><a 
+ id="x1-64015r1"></a></span>convert <span 
+class="cmsy-10">−</span>trim input.jpg output.jpg
+     
+     </div>
+     </li>
+     <li 
+  class="enumerate" id="x1-64017x4">Remove the similar border:
+     <!--l. 1112-->
+     <div class="lstlisting" id="listing-78"><span class="label"><a 
+ id="x1-64018r1"></a></span>convert <span 
+class="cmsy-10">−</span>fuzz 10% input.jpg output.jpg
+     
+     </div>
+     </li></ol>
+<!--l. 1120--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.10   </span> <a 
+ id="x1-650008.10"></a>Chopping</h3>
+     <ul class="itemize1">
+     <li class="itemize">Removes columns and rows (both, at the same time) of an image.
+     <!--l. 1125-->
+     <div class="lstlisting" id="listing-79"><span class="label"><a 
+ id="x1-65001r1"></a></span>convert <span 
+class="cmsy-10">−</span>chop 500x600+700+800 input.png output.png <br /><span class="label"><a 
+ id="x1-65002r2"></a></span>#              ^   ^   ^   ^ <br /><span class="label"><a 
+ id="x1-65003r3"></a></span>#              |   |   |   | <br /><span class="label"><a 
+ id="x1-65004r4"></a></span>#              |   |   | Y offset <br /><span class="label"><a 
+ id="x1-65005r5"></a></span>#              |   | X offset <br /><span class="label"><a 
+ id="x1-65006r6"></a></span>#              | height of the removed region <br /><span class="label"><a 
+ id="x1-65007r7"></a></span>#            width of the removed region
+     
+     </div>
+     </li></ul>
+                                                                  
+
+                                                                  
+<!--l. 1139--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.11   </span> <a 
+ id="x1-660008.11"></a>Adding images</h3>
+   <!--l. 1142-->
+   <div class="lstlisting" id="listing-80"><span class="label"><a 
+ id="x1-66001r1"></a></span>convert image1.jpg image2.png image3.tif output.pdf
+   
+   </div>
+<!--l. 1148--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.12   </span> <a 
+ id="x1-670008.12"></a>Inserting images</h3>
+   <!--l. 1151-->
+   <div class="lstlisting" id="listing-81"><span class="label"><a 
+ id="x1-67001r1"></a></span># Inserts ‘‘image.png&#x2019;&#x2019; as the 3rd image: <br /><span class="label"><a 
+ id="x1-67002r2"></a></span>convert <span 
+class="cmsy-10">−</span>insert 3 image.png input.mng output.gif
+   
+   </div>
+<!--l. 1158--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.13   </span> <a 
+ id="x1-680008.13"></a>Deleting images</h3>
+   <!--l. 1161-->
+   <div class="lstlisting" id="listing-82"><span class="label"><a 
+ id="x1-68001r1"></a></span># Deletes the 3rd, 4th and 10th images: <br /><span class="label"><a 
+ id="x1-68002r2"></a></span>convert <span 
+class="cmsy-10">−</span>delete 3,4,10 input.mng output.gif
+   
+   </div>
+<!--l. 1168--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.14   </span> <a 
+ id="x1-690008.14"></a>Swapping images</h3>
+   <!--l. 1171-->
+   <div class="lstlisting" id="listing-83"><span class="label"><a 
+ id="x1-69001r1"></a></span># Swaps the 3rd, 4th images: <br /><span class="label"><a 
+ id="x1-69002r2"></a></span>convert <span 
+class="cmsy-10">−</span>delete 3,4 input.mng output.gif
+   
+   </div>
+                                                                  
+
+                                                                  
+<!--l. 1178--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.15   </span> <a 
+ id="x1-700008.15"></a>Appending</h3>
+   <!--l. 1181-->
+   <div class="lstlisting" id="listing-84"><span class="label"><a 
+ id="x1-70001r1"></a></span>convert top.png bottom.png <span 
+class="cmsy-10">−</span>append result.png
+   
+   </div>
+    
+</body> 
+</html>
+                                                                  
+
+
